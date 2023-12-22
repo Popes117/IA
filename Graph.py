@@ -8,16 +8,17 @@ from queue import Queue
 import networkx as nx  # biblioteca de tratamento de grafos necessária para desnhar graficamente o grafo
 import matplotlib.pyplot as plt  # idem
 
+import Heu
 import Node
 
 
 class Grafo:
 
-    def __init__(self, directed=False):
+    def __init__(self, heuristicas: Heu, directed=False):
         self.m_nodes = []
         self.m_directed = directed
         self.m_graph = {}  # dicionario para armazenar os nodos e arestas
-        self.m_h = {}  # dicionario para posterirmente armazenar as heuristicas para cada nodo -< pesquisa informada
+        self.m_h = heuristicas  # dicionario para posterirmente armazenar as heuristicas para cada nodo -< pesquisa informada
 
     #############
     # Escrever o grafo como string
@@ -212,29 +213,6 @@ class Grafo:
         plt.draw()
         plt.show()
 
-    ##########################################################################
-    #  add_heuristica   -> define heuristica para cada nodo
-    ##########################################################################
-
-    def add_heuristica(self, n, estima):
-        n1 = Node(n)
-        if n1 in self.m_nodes:
-            self.m_h[n] = estima
-
-
-
-    #######################################################################
-    #    heuristica   -> define heuristica para cada nodo 1 por defeito....
-    #    apenas para teste de pesquisa informada
-    #######################################################################
-
-    def heuristica(self):
-        nodos = self.m_graph.keys
-        for n in nodos:
-            self.m_h[n] = 1
-        return (True)
-
-
     ##########################################3
     #
     def calcula_est(self, estima):
@@ -278,7 +256,7 @@ class Grafo:
                     n = v
                 else:
                     flag = 1
-                    calc_heurist[v] = g[v] + self.getH(v)
+                    calc_heurist[v] = g[v] + self.heuristica.getHeu(v,end)
             if flag == 1:
                 min_estima = self.calcula_est(calc_heurist)
                 n = min_estima
@@ -333,17 +311,21 @@ class Grafo:
 
     ###################################3
     # devolve heuristica do nodo
+    # Precisa ser alterada
     ####################################
 
-    def getH(self, nodo):
+    def getH(self, dest, nodo):
         if nodo not in self.m_h.keys():
             return 1000
         else:
+            heu=list()
+            
             return (self.m_h[nodo])
 
 
     ##########################################
     #   Greedy
+    # Precisa ser alterada
     ##########################################
 
     def greedy(self, start, end):
