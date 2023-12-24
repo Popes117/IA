@@ -4,6 +4,7 @@ from estafeta import *
 from transporte import *
 from encomenda import *
 from rua import *
+from cliente import *
 import Heu
 
 e1 = Estafeta(1,"João Afonso",4,"Bicicleta")
@@ -18,6 +19,7 @@ e9 = Estafeta(9,"Marta Rodrigues",4.5,"Carro")
 
 heuristicas = Heu()
 heuristicas.fillHeuristicas() #mudar esta funcao
+
 
 t1 = Transporte("Bicicleta", 5, 10)
 t2 = Transporte("Mota", 20, 35)
@@ -38,9 +40,21 @@ rua11 = Rua("Rua Joãozinho Azeredo", "Maximinos")
 rua12 = Rua("Rua da Igreja", "Nogueira")
 rua13 = Rua("Rua da Senra", "Lamacães")
 
+#podemos talvez implementar um registo dos clientes???
+
+client1 = Cliente(1, "Ana Silva", rua3)
+client2 = Cliente(2, "José Pereira", rua1)
+client3 = Cliente(3, "Mariana Costa", rua5)
+client4 = Cliente(4, "Rui Oliveira", rua9)
+client5 = Cliente(5, "Carla Sousa", rua12)
+client6 = Cliente(6, "Hugo Fernandes",rua6)
+client7 = Cliente(7, "Beatriz Santos", rua7)
+client8 = Cliente(8, "André Martins", rua10)
+
+
 
 g = Graph()
-#deve ser aqui substituido por ruax ???
+#deve ser aqui substituido por ruax ??? - valores a serem alterados
 g.add_edge("Rua da Confeiteira", "Rua de Redondo", 10) #rua1, rua2
 g.add_edge("Rua da Confeiteira", "Rua de São Martinho", 17) #rua1, rua3
 g.add_edge("Rua da Confeiteira", "Rua 5 de Outubro", 18) #rua1, rua4

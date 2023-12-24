@@ -57,7 +57,7 @@ class Grafo:
     #############################
     # Adicionar   aresta no grafo
     #############################
-    """
+    
     def add_edge(self, node1, node2, weight):
         n1 = Node(node1)
         n2 = Node(node2)
@@ -76,8 +76,8 @@ class Grafo:
         self.m_graph[node1].append((node2, weight))
         if not self.m_directed:
             self.m_graph[node2].append((node1, weight))
-    """
-
+    
+    """ -> versao para as ruas
     def add_edge(self, rua1, rua2, weight):
         n1 = Rua(rua1)
         n2 = Rua(rua2)
@@ -96,7 +96,7 @@ class Grafo:
         self.m_graph[rua1].append((rua2, weight))
         if not self.m_directed:
             self.m_graph[rua2].append((rua1, weight))
-
+    """
 
 
     #############################
