@@ -4,6 +4,7 @@
 # Classe grafo para representaçao de grafos,
 import math
 from queue import Queue
+from rua import Rua
 
 import networkx as nx  # biblioteca de tratamento de grafos necessária para desnhar graficamente o grafo
 import matplotlib.pyplot as plt  # idem
@@ -56,7 +57,7 @@ class Grafo:
     #############################
     # Adicionar   aresta no grafo
     #############################
-
+    """
     def add_edge(self, node1, node2, weight):
         n1 = Node(node1)
         n2 = Node(node2)
@@ -73,10 +74,29 @@ class Grafo:
             n2 = self.get_node_by_name(node2)
 
         self.m_graph[node1].append((node2, weight))
-
-
         if not self.m_directed:
             self.m_graph[node2].append((node1, weight))
+    """
+
+    def add_edge(self, rua1, rua2, weight):
+        n1 = Rua(rua1)
+        n2 = Rua(rua2)
+        if (n1 not in self.m_nodes):
+            self.m_nodes.append(n1)
+            self.m_graph[rua1] = list()
+        else:
+            n1 = self.get_node_by_name(rua1)   
+
+        if (n2 not in self.m_nodes):
+            self.m_nodes.append(n2)
+            self.m_graph[rua2] = list()
+        else:
+            n2 = self.get_node_by_name(rua2)
+
+        self.m_graph[rua1].append((rua2, weight))
+        if not self.m_directed:
+            self.m_graph[rua2].append((rua1, weight))
+
 
 
     #############################

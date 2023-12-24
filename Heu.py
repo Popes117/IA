@@ -1,9 +1,3 @@
-#Inteligência Artificial
-#2022/23
-
-
-# Classe nodo para definiçao dos nodos
-# cada nodo tem um nome e um id, poderia ter também informação sobre um ob jeto a guardar.....
 class Heu:
 
     def __init__(self):
