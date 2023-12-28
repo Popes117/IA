@@ -2,252 +2,140 @@ class Heu:
 
     def __init__(self):
         self.heuristicas = list()
-    
+
     def fillHeuristicas(self):
-        heuristicasBraga= {
-            "Amares":15,
-            "Barcelos":24,
-            "Braga":1,
-            "Cabeceiras de Basto":37,
-            "Celorico de Basto":41,
-            "Esposende":31,
-            "Fafe":29,
-            "Guimarães":20,
-            "Póvoa de Lanhoso":14, 
-            "Terras de Bouro":34,
-            "Vieira do Minho":28, 
-            "Vila Nova de Famalicão":23, 
-            "Vila Verde":13,
-            "Vizela":28
+        heuristicasRuadaConfeiteira= {
+            "Rua da Confeiteira":0,
+            "Rua de Redondo":2.4,
+            "Rua de São Martinho":1.9,
+            "Rua 5 de Outubro":1.2,
+            "Rua da Universidade":3.3,
+            "Rua Santa Margarida":2.3,
+            "Rua de São José":2.7,
+            "Rua do Raio":2.9,
+            "Avenida Dom Joao II":3.6, 
+            "Rua do Fujacal":2.7,
+            "Rua Joãozinho Azeredo":2.6, 
+            "Rua da Igreja":4.5, 
+            "Rua da Senra":4.1
         }
-
-        heuristicasAmares= {
-            "Amares":1,
-            "Barcelos":31,
-            "Braga":15,
-            "Cabeceiras de Basto":29,
-            "Celorico de Basto":34,
-            "Esposende":40,
-            "Fafe":26,
-            "Guimarães":28,
-            "Póvoa de Lanhoso":11, 
-            "Terras de Bouro":13,
-            "Vieira do Minho":21, 
-            "Vila Nova de Famalicão":32, 
-            "Vila Verde":9,
-            "Vizela":32
+        heuristicasRuadeRedondo= {
+            "Rua de Redondo":0,
+            "Rua de São Martinho":3.0,
+            "Rua 5 de Outubro":2.1,
+            "Rua da Universidade":1.4,
+            "Rua Santa Margarida":2.0,
+            "Rua de São José":1.7,
+            "Rua do Raio":2.0,
+            "Avenida Dom Joao II":2.0, 
+            "Rua do Fujacal":2.6,
+            "Rua Joãozinho Azeredo":3.2, 
+            "Rua da Igreja":4.0,
+            "Rua da Senra":4.2
         }
-
-        heuristicasBarcelos= {
-            "Amares":31,
-            "Barcelos":1,
-            "Braga":24,
-            "Cabeceiras de Basto":60,
-            "Celorico de Basto":63,
-            "Esposende":13,
-            "Fafe":50,
-            "Guimarães":32,
-            "Póvoa de Lanhoso":33, 
-            "Terras de Bouro":44,
-            "Vieira do Minho":51, 
-            "Vila Nova de Famalicão":26, 
-            "Vila Verde":25,
-            "Vizela":37
+        heuristicasRuadeSãoMartinho= {
+            "Rua de São Martinho":0,
+            "Rua 5 de Outubro":1.1,
+            "Rua da Universidade":3.5,
+            "Rua Santa Margarida":1.2,
+            "Rua de São José":2.0,
+            "Rua do Raio":1.9,
+            "Avenida Dom Joao II":2.8, 
+            "Rua do Fujacal":1.4,
+            "Rua Joãozinho Azeredo":0.8, 
+            "Rua da Igreja":2.5, 
+            "Rua da Senra":1.8
         }
         heuristicasCabeceiras= {
-            "Amares":29,
-            "Barcelos":60,
-            "Braga":37,
-            "Cabeceiras de Basto":1,
-            "Celorico de Basto":22,
-            "Esposende":60,
-            "Fafe":26,
-            "Guimarães":33,
-            "Póvoa de Lanhoso":25, 
-            "Terras de Bouro":40,
-            "Vieira do Minho":18, 
-            "Vila Nova de Famalicão":57, 
-            "Vila Verde":40,
-            "Vizela":38
+            "Rua 5 de Outubro":0,
+            "Rua da Universidade":2.9,
+            "Rua Santa Margarida":1.0,
+            "Rua de São José":1.5,
+            "Rua do Raio":1.6,
+            "Avenida Dom Joao II":2.7, 
+            "Rua do Fujacal":1.9,
+            "Rua Joãozinho Azeredo":1.8, 
+            "Rua da Igreja":3.0, 
+            "Rua da Senra":2.8
         }
         heuristicasCelorico= {
-            "Amares":34,
-            "Barcelos":63,
-            "Braga":41,
-            "Cabeceiras de Basto":22,
-            "Celorico de Basto":1,
-            "Esposende":80,
-            "Fafe":19,
-            "Guimarães":28,
-            "Póvoa de Lanhoso":42, 
-            "Terras de Bouro":54,
-            "Vieira do Minho":33, 
-            "Vila Nova de Famalicão":52, 
-            "Vila Verde":64,
-            "Vizela":30
+            "Rua da Universidade":0,
+            "Rua Santa Margarida":1.9,
+            "Rua de São José":1.4,
+            "Rua do Raio":1.6,
+            "Avenida Dom Joao II":1.3, 
+            "Rua do Fujacal":2.6,
+            "Rua Joãozinho Azeredo":3.1, 
+            "Rua da Igreja":2.9, 
+            "Rua da Senra":3.3
         }
-        heuristicaEsposende= {
-            "Amares":40,
-            "Barcelos":13,
-            "Braga":31,
-            "Cabeceiras de Basto":60,
-            "Celorico de Basto":65,
-            "Esposende":1,
-            "Fafe":62,
-            "Guimarães":45,
-            "Póvoa de Lanhoso":40, 
-            "Terras de Bouro":53,
-            "Vieira do Minho":57, 
-            "Vila Nova de Famalicão":29, 
-            "Vila Verde":27,
-            "Vizela":49
+        heuristicaRuaSantaMargarida= {
+            "Rua Santa Margarida":0,
+            "Rua de São José":0.8,
+            "Rua do Raio":0.7,
+            "Avenida Dom Joao II":1.6, 
+            "Rua do Fujacal":1.0,
+            "Rua Joãozinho Azeredo":1.2, 
+            "Rua da Igreja":2.4, 
+            "Rua da Senra":2.7
         }
-        heuristicasFafe= {
-            "Amares":26,
-            "Barcelos":50,
-            "Braga":29,
-            "Cabeceiras de Basto":26,
-            "Celorico de Basto":19,
-            "Esposende":62,
-            "Fafe":1,
-            "Guimarães":14,
-            "Póvoa de Lanhoso":25, 
-            "Terras de Bouro":41,
-            "Vieira do Minho":28, 
-            "Vila Nova de Famalicão":34, 
-            "Vila Verde":33,
-            "Vizela":18
+        heuristicasRuadeSaoJose= {
+            "Rua de São José":0,
+            "Rua do Raio":0.3,
+            "Avenida Dom Joao II":1.0, 
+            "Rua do Fujacal":1.3,
+            "Rua Joãozinho Azeredo":1.6, 
+            "Rua da Igreja":2.2, 
+            "Rua da Senra":2.1
         }
         heuristicasGuimaraes= {
-            "Amares":28,
-            "Barcelos":32,
-            "Braga":20,
-            "Cabeceiras de Basto":33,
-            "Celorico de Basto":28,
-            "Esposende":45,
-            "Fafe":14,
-            "Guimarães":1,
-            "Póvoa de Lanhoso":23, 
-            "Terras de Bouro":47,
-            "Vieira do Minho":31, 
-            "Vila Nova de Famalicão":23, 
-            "Vila Verde":38,
-            "Vizela":13
+            "Rua do Raio":0,
+            "Avenida Dom Joao II":0.8, 
+            "Rua do Fujacal":0.9,
+            "Rua Joãozinho Azeredo":1.4, 
+            "Rua da Igreja":1.7, 
+            "Rua da Senra":1.7
         }
         heuristicasLanhoso= {
-            "Amares":11,
-            "Barcelos":33,
-            "Braga":14,
-            "Cabeceiras de Basto":25,
-            "Celorico de Basto":42,
-            "Esposende":40,
-            "Fafe":25,
-            "Guimarães":23,
-            "Póvoa de Lanhoso":1, 
-            "Terras de Bouro":17,
-            "Vieira do Minho":14, 
-            "Vila Nova de Famalicão":33, 
-            "Vila Verde":20,
-            "Vizela":30
+            "Avenida Dom Joao II":0, 
+            "Rua do Fujacal":1.5,
+            "Rua Joãozinho Azeredo":2.2, 
+            "Rua da Igreja":1.6, 
+            "Rua da Senra":2.1
         }
         heuristicasBouro= {
-            "Amares":13,
-            "Barcelos":44,
-            "Braga":34,
-            "Cabeceiras de Basto":40,
-            "Celorico de Basto":54,
-            "Esposende":53,
-            "Fafe":41,
-            "Guimarães":47,
-            "Póvoa de Lanhoso":17, 
-            "Terras de Bouro":1,
-            "Vieira do Minho":20, 
-            "Vila Nova de Famalicão":64, 
-            "Vila Verde":19,
-            "Vizela":59
+            "Rua do Fujacal":0,
+            "Rua Joãozinho Azeredo":0.7, 
+            "Rua da Igreja":1.5, 
+            "Rua da Senra":1
         }
         heuristicasVieiraDoMinho= {
-            "Amares":21,
-            "Barcelos":51,
-            "Braga":28,
-            "Cabeceiras de Basto":18,
-            "Celorico de Basto":33,
-            "Esposende":57,
-            "Fafe":28,
-            "Guimarães":31,
-            "Póvoa de Lanhoso":14, 
-            "Terras de Bouro":20,
-            "Vieira do Minho":1, 
-            "Vila Nova de Famalicão":56, 
-            "Vila Verde":31,
-            "Vizela":41
+            "Rua Joãozinho Azeredo":0, 
+            "Rua da Igreja":2.3, 
+            "Rua da Senra":1.3
         }
         heuristicasFamalicao= {
-            "Amares":32,
-            "Barcelos":26,
-            "Braga":23,
-            "Cabeceiras de Basto":57,
-            "Celorico de Basto":52,
-            "Esposende":29,
-            "Fafe":34,
-            "Guimarães":23,
-            "Póvoa de Lanhoso":33, 
-            "Terras de Bouro":64,
-            "Vieira do Minho":56, 
-            "Vila Nova de Famalicão":1, 
-            "Vila Verde":34,
-            "Vizela":21
+            "Rua da Igreja":0, 
+            "Rua da Senra":0.8
         }
-        heuristicasVilaVerde= {
-            "Amares":9,
-            "Barcelos":25,
-            "Braga":13,
-            "Cabeceiras de Basto":40,
-            "Celorico de Basto":64,
-            "Esposende":27,
-            "Fafe":33,
-            "Guimarães":38,
-            "Póvoa de Lanhoso":20, 
-            "Terras de Bouro":19,
-            "Vieira do Minho":31, 
-            "Vila Nova de Famalicão":34, 
-            "Vila Verde":1,
-            "Vizela":47
-        }
-        heuristicasVizela= {
-            "Amares":32,
-            "Barcelos":37,
-            "Braga":28,
-            "Cabeceiras de Basto":38,
-            "Celorico de Basto":30,
-            "Esposende":49,
-            "Fafe":18,
-            "Guimarães":11,
-            "Póvoa de Lanhoso":30, 
-            "Terras de Bouro":59,
-            "Vieira do Minho":41, 
-            "Vila Nova de Famalicão":21, 
-            "Vila Verde":47,
-            "Vizela":1
-        }
-        self.heuristicas.append(heuristicasBraga)
-        self.heuristicas.append(heuristicasAmares)
-        self.heuristicas.append(heuristicasBarcelos)
+        self.heuristicas.append(heuristicasRuadeSãoMartinho)
+        self.heuristicas.append(heuristicasRuadaConfeiteira)
+        self.heuristicas.append(heuristicasRuadeRedondo)
         self.heuristicas.append(heuristicasCabeceiras)
         self.heuristicas.append(heuristicasCelorico)
-        self.heuristicas.append(heuristicaEsposende)
-        self.heuristicas.append(heuristicasFafe)
+        self.heuristicas.append(heuristicaRuaSantaMargarida)
+        self.heuristicas.append(heuristicasRuadeSaoJose)
         self.heuristicas.append(heuristicasGuimaraes)
         self.heuristicas.append(heuristicasLanhoso)
         self.heuristicas.append(heuristicasBouro)
         self.heuristicas.append(heuristicasVieiraDoMinho)
         self.heuristicas.append(heuristicasFamalicao)
-        self.heuristicas.append(heuristicasVilaVerde)
-        self.heuristicas.append(heuristicasVizela)
 
     def getHeu(self, name, dest):
         for heu in self.heuristicas:
             if heu[name] == 1:
                 return heu[dest]
+            elif heu[dest] == 0:
+                return heu[name]
         return 0
 
