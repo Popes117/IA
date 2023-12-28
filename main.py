@@ -1,21 +1,33 @@
 import Graph
-import Node
 from estafeta import *
 from transporte import *
 from encomenda import *
 from rua import *
 from cliente import *
 import Heu
+import menu
 
-e1 = Estafeta(1,"João Afonso",4,"Bicicleta")
-e2 = Estafeta(2,"Maria Alberta",3.2,"Mota")
-e3 = Estafeta(3,"António Moura",2.9,"Bicicleta")
-e4 = Estafeta(4,"Francisca Maria",3.7,"Mota")
-e5 = Estafeta(5,"José Oliveira",1.9,"Carro")
-e6 = Estafeta(6,"Gonçalo Machado",3.7,"Bicicleta")
-e7 = Estafeta(7,"Maria João",4.2,"Bicicleta")
-e8 = Estafeta(8,"Pedro Lopes",3.4,"Carro")
-e9 = Estafeta(9,"Marta Rodrigues",4.5,"Carro")
+listEncomendas = list()
+
+listEstafetas = list()
+e1 = Estafeta(1,"João Afonso",15,5)
+e2 = Estafeta(2,"Maria Alberta",14,3)
+e3 = Estafeta(3,"António Moura",19,7)
+e4 = Estafeta(4,"Francisca Maria",21,5)
+e5 = Estafeta(5,"José Oliveira",50,10)
+e6 = Estafeta(6,"Gonçalo Machado",31,7)
+e7 = Estafeta(7,"Maria João",100,50)
+e8 = Estafeta(8,"Pedro Lopes",42,9)
+e9 = Estafeta(9,"Marta Rodrigues",79,16)
+listEstafetas.append(e1)
+listEstafetas.append(e2)
+listEstafetas.append(e3)
+listEstafetas.append(e4)
+listEstafetas.append(e5)
+listEstafetas.append(e6)
+listEstafetas.append(e7)
+listEstafetas.append(e8)
+listEstafetas.append(e9)
 
 heuristicas = Heu()
 heuristicas.fillHeuristicas() #mudar esta funcao
@@ -24,7 +36,6 @@ heuristicas.fillHeuristicas() #mudar esta funcao
 t1 = Transporte("Bicicleta", 5, 10)
 t2 = Transporte("Mota", 20, 35)
 t3 = Transporte("Carro", 100, 50)
-
 
 rua1 = Rua("Rua da Confeiteira", "Palmeira")
 rua2 = Rua("Rua de Redondo", "Adaufe")
@@ -40,8 +51,7 @@ rua11 = Rua("Rua Joãozinho Azeredo", "Maximinos")
 rua12 = Rua("Rua da Igreja", "Nogueira")
 rua13 = Rua("Rua da Senra", "Lamacães")
 
-#podemos talvez implementar um registo dos clientes???
-
+listClientes = list()
 client1 = Cliente(1, "Ana Silva", rua3)
 client2 = Cliente(2, "José Pereira", rua1)
 client3 = Cliente(3, "Mariana Costa", rua5)
@@ -50,67 +60,87 @@ client5 = Cliente(5, "Carla Sousa", rua12)
 client6 = Cliente(6, "Hugo Fernandes",rua6)
 client7 = Cliente(7, "Beatriz Santos", rua7)
 client8 = Cliente(8, "André Martins", rua10)
-
-
+listEstafetas.append(client1)
+listEstafetas.append(client2)
+listEstafetas.append(client3)
+listEstafetas.append(client4)
+listEstafetas.append(client5)
+listEstafetas.append(client6)
+listEstafetas.append(client7)
+listEstafetas.append(client8)
 
 g = Graph()
 #deve ser aqui substituido por ruax ??? - valores a serem alterados
-g.add_edge("Rua da Confeiteira", "Rua de Redondo", 10) #rua1, rua2
-g.add_edge("Rua da Confeiteira", "Rua de São Martinho", 17) #rua1, rua3
-g.add_edge("Rua da Confeiteira", "Rua 5 de Outubro", 18) #rua1, rua4
-g.add_edge("Rua da Confeiteira", "Rua Santa Margarida", 10) #rua1, rua6
-g.add_edge("Rua de Redondo", "Rua da Universidade", 27) #rua2, rua5
-g.add_edge("Rua de São Martinho","Rua 5 de Outubro", 5) #rua3, rua4
-g.add_edge("Rua de São Martinho", "Rua Santa Margarida", 15) #rua3, rua6
-g.add_edge("Rua de São Martinho", "Rua de São José", 20) #rua3, rua6
-g.add_edge("Rua 5 de Outubro", "Rua Santa Margarida", 17) #rua4, rua6
-g.add_edge("Rua 5 de Outubro", "Rua de São José",25) #rua4, rua7
-g.add_edge("Rua 5 de Outubro", "Rua Joãozinho Azeredo", 20) #rua4, rua11
-g.add_edge("Rua da Universidade", "Rua Santa Margarida", 10) #rua5, rua6
-g.add_edge("Rua da Universidade", "Rua de São José", 10) #rua5, rua7
-g.add_edge("Rua da Universidade", "Rua do Raio", 10) #rua5, rua8
-g.add_edge("Rua da Universidade", "Avenida Dom Joao II", 10) #rua5, rua9
-g.add_edge("Rua Santa Margarida", "Rua de São José", 10) #rua6, rua7
-g.add_edge("Rua Santa Margarida", "Rua do Raio", 10)#rua6, rua8
-g.add_edge("Rua Santa Margarida", "Rua do Fujacal", 10)#rua6, rua10
-g.add_edge("Rua Santa Margarida", "Rua Joãozinho Azeredo",10) #rua6, rua11
-g.add_edge("Rua de São José", "Rua do Raio", 5) #rua7, rua8
-g.add_edge("Rua de São José", "Avenida Dom Joao II" , 10) #rua7, rua9
-g.add_edge("Rua de São José", "Rua da Igreja", 10) #rua7, rua12
-g.add_edge("Rua de São José", "Rua da Senra", 10) #rua7, rua13
-g.add_edge("Rua do Raio", "Rua do Fujacal", 10) #rua8, rua10
-g.add_edge("Rua do Raio", "Rua da Senra", 10) #rua8, rua13
-g.add_edge("Avenida Dom Joao II", "Rua da Igreja", 10) #rua9, rua12
-g.add_edge("Avenida Dom Joao II", "Rua da Senra", 10) #rua9, rua13
-g.add_edge("Rua do Fujacal", "Rua Joãozinho Azeredo", 10) #rua10, rua11
-g.add_edge("Rua do Fujacal", "Rua da Igreja", 10) #rua10, #rua12
-g.add_edge("Rua da Igreja", "Rua da Senra", 10) #rua12, rua13
+g.add_edge(rua1, rua2, 2.8) #rua1, rua2
+g.add_edge(rua1, rua4, 1.7) #rua1, rua4
+g.add_edge(rua1, rua6, 3.6) #rua1, rua6
+g.add_edge(rua2, rua5, 1.5) #rua2, rua5
+g.add_edge(rua3,rua4, 1.2) #rua3, rua4
+g.add_edge(rua3, rua6, 1.5) #rua3, rua6
+g.add_edge(rua3, rua7, 3.0) #rua3, rua6
+g.add_edge(rua4, rua6, 1.3) #rua4, rua6
+g.add_edge(rua4, rua7, 2.0) #rua4, rua7
+g.add_edge(rua4, rua11, 1.9) #rua4, rua11
+g.add_edge(rua5, rua7, 1.5) #rua5, rua7
+g.add_edge(rua5, rua8, 1.7) #rua5, rua8
+g.add_edge(rua5, rua9, 1.6) #rua5, rua9
+g.add_edge(rua6, rua7, 1.0) #rua6, rua7
+g.add_edge(rua6, rua8, 0.8)#rua6, rua8
+g.add_edge(rua6, rua10, 1.3)#rua6, rua10
+g.add_edge(rua6, rua11, 1.1) #rua6, rua11
+g.add_edge(rua7, rua8, 0.5) #rua7, rua8
+g.add_edge(rua7, rua9 , 1.2) #rua7, rua9
+g.add_edge(rua8, rua9 , 1.0) #rua8, rua9
+g.add_edge(rua7, rua12, 2.9) #rua7, rua12
+g.add_edge(rua7, rua13, 3.5) #rua7, rua13
+g.add_edge(rua8, rua10, 1.4) #rua8, rua10
+g.add_edge(rua8, rua13, 2.7) #rua8, rua13
+g.add_edge(rua9, rua12, 2.0) #rua9, rua12
+g.add_edge(rua9, rua13, 2.9) #rua9, rua13
+g.add_edge(rua10, rua11, 1.3) #rua10, rua11
+g.add_edge(rua10, rua12, 1.9) #rua10, #rua12
+g.add_edge(rua12, rua13, 0.9) #rua12, rua13
 
 
-
-#g.add_edge("Braga", "Amares", 15)#
-#g.add_edge("Braga", "Póvoa de Lanhoso", 16)#
-#g.add_edge("Braga", "Vila Verde", 17)#
-#g.add_edge("Braga", "Barcelos", 27)#
-#g.add_edge("Braga", "Vila Nova de Famalicão", 25)#
-#g.add_edge("Braga", "Guimarães", 22)#
-#g.add_edge("Amares", "Vila Verde", 13)#
-#g.add_edge("Amares", "Terras de Bouro", 16)#
-#g.add_edge("Amares", "Póvoa de Lanhoso", 14)#
-#g.add_edge("Terras de Bouro", "Vieira do Minho", 25)#
-#g.add_edge("Terras de Bouro", "Vila Verde", 25)#
-#g.add_edge("Vieira do Minho", "Fafe", 30)#
-#g.add_edge("Vieira do Minho", "Póvoa de Lanhoso", 16)#
-#g.add_edge("Vieira do Minho", "Cabeceiras de Basto", 26)#
-#g.add_edge("Cabeceiras de Basto", "Fafe", 29)#
-#g.add_edge("Cabeceiras de Basto", "Celorico de Basto", 25)#
-#g.add_edge("Celorico de Basto", "Fafe", 26)#
-#g.add_edge("Fafe", "Póvoa de Lanhoso", 29)#
-#g.add_edge("Fafe", "Guimarães", 15)#
-#g.add_edge("Vizela", "Guimarães", 18)#
-#g.add_edge("Guimarães", "Vila Nova de Famalicão", 25)#
-#g.add_edge("Guimarães", "Póvoa de Lanhoso", 24)#
-#g.add_edge("Barcelos", "Vila Nova de Famalicão",22)#
-#g.add_edge("Barcelos", "Esposende", 16)#
-#g.add_edge("Barcelos", "Vila Verde", 26)#
-#g.add_edge("Vila Verde", "Amares", 13)#
+""" Zé: Corrigir os algoritmos(Greedy) e testar os outros(BFS, DFS, A*)
+        Implementar a decisão de transporte
+""" 
+run = True
+m = menu() 
+while run:
+        m.printMenu()
+        userInput = int(input("Escolha opção: "))
+        if userInput == 3:
+                clienteNome = input("Escolha nome:")
+                print("[1] ", rua1)
+                print("[2] ", rua2)
+                print("[3] ", rua3)
+                print("[4] ", rua4)
+                print("[5] ", rua5)
+                print("[6] ", rua6)
+                print("[7] ", rua7)
+                print("[8] ", rua8)
+                print("[9] ", rua9)
+                print("[10] ", rua10)
+                print("[11] ", rua11)
+                print("[12] ", rua12)
+                print("[13] ", rua13)
+                clienteRua = int(input("Escolha Rua:"))
+                listClientes.append(Cliente(0,clienteNome,clienteRua))
+                print("Cliente Criado.")
+        elif userInput == 4:
+                estafetaNome = input("Escolha nome:")
+                listEstafetas.append(Estafeta(0,estafetaNome,0,0))
+        elif userInput == 5:
+                        encomendaIdC = int(input("Id Cliente: "))
+                        peso = float(input("Peso da Encomenda: "))
+                        volume = float(input("Volume da encomenda(em centímetros cúbicos): "))
+                        hora_limite = input("Hora limite de entrega(hh:mm): ")
+                        morada = None
+                        for cliente in listClientes:
+                                if cliente.getId() == encomendaIdC:
+                                        encomenda = Encomenda(0,encomendaIdC,peso,volume,hora_limite,cliente.getRua())
+        elif userInput == 0:
+                run = False
+        else:
+                print("Input inválido.")
