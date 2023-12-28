@@ -10,16 +10,15 @@ import networkx as nx  # biblioteca de tratamento de grafos necessária para des
 import matplotlib.pyplot as plt  # idem
 
 import Heu
-import Node
 
 
 class Grafo:
 
-    def __init__(self, heuristicas: Heu, directed=False):
+    def __init__(self, heuristica: Heu, directed=False):
         self.m_nodes = []
         self.m_directed = directed
         self.m_graph = {}  # dicionario para armazenar os nodos e arestas
-        self.m_h = heuristicas  # dicionario para posterirmente armazenar as heuristicas para cada nodo -< pesquisa informada
+        self.m_h = heuristica  # dicionario para posterirmente armazenar as heuristicas para cada nodo -< pesquisa informada
 
     #############
     # Escrever o grafo como string
@@ -34,10 +33,9 @@ class Grafo:
     # Encontrar nodo pelo nome
     ################################
 
-    def get_node_by_name(self, name):
-        search_node = Node(name)
+    def get_node_by_name(self, name:str):
         for node in self.m_nodes:
-            if node == search_node:
+            if node.getNome() == name:
                 return node
             else:
                 return None
@@ -57,46 +55,24 @@ class Grafo:
     #############################
     # Adicionar   aresta no grafo
     #############################
-    
-    def add_edge(self, node1, node2, weight):
-        n1 = Node(node1)
-        n2 = Node(node2)
-        if (n1 not in self.m_nodes):
-            self.m_nodes.append(n1)
-            self.m_graph[node1] = list()
-        else:
-            n1 = self.get_node_by_name(node1)
-
-        if (n2 not in self.m_nodes):
-            self.m_nodes.append(n2)
-            self.m_graph[node2] = list()
-        else:
-            n2 = self.get_node_by_name(node2)
-
-        self.m_graph[node1].append((node2, weight))
-        if not self.m_directed:
-            self.m_graph[node2].append((node1, weight))
-    
-    """ -> versao para as ruas
-    def add_edge(self, rua1, rua2, weight):
-        n1 = Rua(rua1)
-        n2 = Rua(rua2)
-        if (n1 not in self.m_nodes):
-            self.m_nodes.append(n1)
+   
+    def add_edge(self, rua1:Rua, rua2:Rua, weight):
+        if (rua1 not in self.m_nodes):
+            self.m_nodes.append(rua1)
             self.m_graph[rua1] = list()
         else:
-            n1 = self.get_node_by_name(rua1)   
+            rua1 = self.get_node_by_name(rua1)   
 
-        if (n2 not in self.m_nodes):
-            self.m_nodes.append(n2)
+        if (rua2 not in self.m_nodes):
+            self.m_nodes.append(rua2)
             self.m_graph[rua2] = list()
         else:
-            n2 = self.get_node_by_name(rua2)
+            rua2 = self.get_node_by_name(rua2)
 
         self.m_graph[rua1].append((rua2, weight))
         if not self.m_directed:
             self.m_graph[rua2].append((rua1, weight))
-    """
+
 
 
     #############################
@@ -150,7 +126,7 @@ class Grafo:
             if adjacente not in visited:
                 resultado = self.procura_DFS(adjacente, end, path, visited)
                 if resultado is not None:
-                    return resultado
+                    return resultado,visited
         path.pop()  # se nao encontra remover o que está no caminho......
         return None
 
@@ -196,7 +172,7 @@ class Grafo:
             path.reverse()
             # funçao calcula custo caminho
             custo = self.calcula_custo(path)
-        return (path, custo)
+        return (path, custo, visited)
 
     ###################################################
     # Função   getneighbours, devolve vizinhos de um nó
@@ -212,7 +188,7 @@ class Grafo:
     #  Desenha grafo  modo grafico
     ###############################
 
-    def desenha(self):
+    """ def desenha(self):
         ##criar lista de vertices
         lista_v = self.m_nodes
         lista_a = []
@@ -232,7 +208,7 @@ class Grafo:
 
         plt.draw()
         plt.show()
-
+    """
     ##########################################3
     #
     def calcula_est(self, estima):
@@ -276,7 +252,7 @@ class Grafo:
                     n = v
                 else:
                     flag = 1
-                    calc_heurist[v] = g[v] + self.heuristica.getHeu(v,end)
+                    calc_heurist[v] = g[v] + self.m_h.getHeu(v,end)
             if flag == 1:
                 min_estima = self.calcula_est(calc_heurist)
                 n = min_estima
@@ -298,7 +274,7 @@ class Grafo:
                 reconst_path.reverse()
 
                 #print('Path found: {}'.format(reconst_path))
-                return (reconst_path, self.calcula_custo(reconst_path))
+                return (reconst_path, self.calcula_custo(reconst_path), open_list.add(closed_list))
 
             # for all neighbors of the current node do
             for (m, weight) in self.getNeighbours(n):  # definir função getneighbours  tem de ter um par nodo peso
@@ -330,17 +306,17 @@ class Grafo:
         return None
 
     ###################################3
-    # devolve heuristica do nodo
-    # Precisa ser alterada
+    # devolve heuristicas do nodo
     ####################################
 
-    def getH(self, dest, nodo):
-        if nodo not in self.m_h.keys():
-            return 1000
-        else:
-            heu=list()
-            
-            return (self.m_h[nodo])
+    def getH(self, nodo):
+        heu = list()
+        for node in self.m_h:
+            if node not in node.keys:
+                heu.append(1000)
+            if nodo[node] != 0:
+                heu.append(nodo[node])
+        return heu
 
 
     ##########################################
@@ -366,7 +342,7 @@ class Grafo:
 
             # encontraf nodo com a menor heuristica
             for v in open_list:
-                if n == None or self.m_h[v] < self.m_h[n]:
+                if n == None or self.m_h.getHeu(v,end) < self.m_h.getHeu(n,end):
                     n = v
 
             if n == None:
@@ -387,7 +363,7 @@ class Grafo:
 
                 reconst_path.reverse()
 
-                return (reconst_path, self.calcula_custo(reconst_path))
+                return (reconst_path, self.calcula_custo(reconst_path), open_list.add(closed_list))
 
             # para todos os vizinhos  do nodo corrente
             for (m, weight) in self.getNeighbours(n):
