@@ -37,19 +37,19 @@ t1 = Transporte("Bicicleta", 5, 10)
 t2 = Transporte("Mota", 20, 35)
 t3 = Transporte("Carro", 100, 50)
 
-rua1 = Rua("Rua da Confeiteira", "Palmeira")
-rua2 = Rua("Rua de Redondo", "Adaufe")
-rua3 = Rua("Rua de São Martinho", "Dume")
-rua4 = Rua("Rua 5 de Outubro", "Real")
-rua5 = Rua("Rua da Universidade", "Gualtar")
-rua6 = Rua("Rua Santa Margarida", "São Vicente")
-rua7 = Rua("Rua de São José", "São Vitor")
-rua8 = Rua("Rua do Raio", "São Vitor")
-rua9 = Rua("Avenida Dom Joao II", "Nogueiró")
-rua10 = Rua("Rua do Fujacal", "São Lazaro")
-rua11 = Rua("Rua Joãozinho Azeredo", "Maximinos")
-rua12 = Rua("Rua da Igreja", "Nogueira")
-rua13 = Rua("Rua da Senra", "Lamacães")
+rua1 = rua.Rua("Rua da Confeiteira", "Palmeira")
+rua2 = rua.Rua("Rua de Redondo", "Adaufe")
+rua3 = rua.Rua("Rua de São Martinho", "Dume")
+rua4 = rua.Rua("Rua 5 de Outubro", "Real")
+rua5 = rua.Rua("Rua da Universidade", "Gualtar")
+rua6 = rua.Rua("Rua Santa Margarida", "São Vicente")
+rua7 = rua.Rua("Rua de São José", "São Vitor")
+rua8 = rua.Rua("Rua do Raio", "São Vitor")
+rua9 = rua.Rua("Avenida Dom Joao II", "Nogueiró")
+rua10 = rua.Rua("Rua do Fujacal", "São Lazaro")
+rua11 = rua.Rua("Rua Joãozinho Azeredo", "Maximinos")
+rua12 = rua.Rua("Rua da Igreja", "Nogueira")
+rua13 = rua.Rua("Rua da Senra", "Lamacães")
 
 listClientes = list()
 client1 = Cliente(1, "Ana Silva", rua3)
@@ -116,38 +116,31 @@ m = Menu()
 while run:
         m.printMenu()
         userInput = int(input("Escolha opção: "))
-        if userInput == 1:
+        if userInput == 0:
                 g.desenha()
-        if userInput == 3:
+        if userInput == 1:
                 clienteNome = input("Escolha nome:")
-                print("[1] ", rua1)
-                print("[2] ", rua2)
-                print("[3] ", rua3)
-                print("[4] ", rua4)
-                print("[5] ", rua5)
-                print("[6] ", rua6)
-                print("[7] ", rua7)
-                print("[8] ", rua8)
-                print("[9] ", rua9)
-                print("[10] ", rua10)
-                print("[11] ", rua11)
-                print("[12] ", rua12)
-                print("[13] ", rua13)
+                m.printRuas()
                 clienteRua = int(input("Escolha Rua:"))
-                listClientes.append(Cliente(0,clienteNome,clienteRua))
+                listClientes.append(Cliente(0,clienteNome,ruas[clienteRua]))
                 print("Cliente Criado.")
-        elif userInput == 4:
+        elif userInput == 2:
                 estafetaNome = input("Escolha nome:")
                 listEstafetas.append(Estafeta(0,estafetaNome,0,0))
         elif userInput == 5:
-                        encomendaIdC = int(input("Id Cliente: "))
-                        peso = float(input("Peso da Encomenda: "))
-                        volume = float(input("Volume da encomenda(em centímetros cúbicos): "))
-                        hora_limite = input("Hora limite de entrega(hh:mm): ")
-                        morada = None
-                        for cliente in listClientes:
-                                if cliente.getId() == encomendaIdC:
-                                        encomenda = Encomenda(0,encomendaIdC,peso,volume,hora_limite,cliente.getRua())
+                encomendaIdC = int(input("Id Cliente: "))
+                peso = float(input("Peso da Encomenda: "))
+                volume = float(input("Volume da encomenda(em centímetros cúbicos): "))
+                hora_limite = input("Hora limite de entrega(hh:mm): ")
+                morada = rua1
+                for cliente in listClientes:
+                    if cliente.getId() == encomendaIdC:
+                        encomenda = Encomenda(0,encomendaIdC,peso,volume,hora_limite,cliente.getRua())
+                        (path, custo, visitados) = g.procura_aStar(cliente.getRua(),morada)
+                        print(path)
+                        print(custo)
+                        print(visitados)
+                        break
         elif userInput == 0:
                 run = False
         else:
