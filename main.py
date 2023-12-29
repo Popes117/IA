@@ -174,7 +174,21 @@ def main():
                     #print(listEstafetas)
                     print(Estafeta.listaEstafeta)
 
-                
+
+        if userInput == 3:
+            encomendaIdC = int(input("Id Cliente: "))
+            peso = float(input("Peso da Encomenda: "))
+            volume = float(input("Volume da encomenda(em centímetros cúbicos): "))
+            hora_limite = input("Hora limite de entrega(hh:mm): ")
+            morada = rua1
+            for cliente in listClientes:
+                if cliente.getId() == encomendaIdC:
+                    encomenda = Encomenda(0,encomendaIdC,peso,volume,hora_limite,cliente.getRua())
+                    (path, custo, visitados) = g.procura_aStar(cliente.getRua(),morada)
+                    print(path)
+                    print(custo)
+                    print(visitados)
+                    break
 
                       
         #Imprimir Ruas

@@ -1,3 +1,4 @@
+import rua as Rua
 
 class Menu:
     def printMenu(self):
@@ -9,6 +10,11 @@ class Menu:
         print("[6] Desenhar Mapa")
         print("[7] Guardar Alterações (caso tenha realizado novos registos)")
         print("[0] Sair")
+
+
+    def printRuas(self, ruas):
+        for i,ruaN in enumerate(ruas):
+            print(f"[ {i} ] {ruaN}")
 
 
     def menu_cliente(self): #pode passar para a lista normal

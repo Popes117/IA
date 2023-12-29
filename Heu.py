@@ -118,9 +118,9 @@ class Heu:
             "Rua da Igreja":0, 
             "Rua da Senra":0.8
         }
-        self.heuristicas.append(heuristicasRuadeSãoMartinho)
         self.heuristicas.append(heuristicasRuadaConfeiteira)
         self.heuristicas.append(heuristicasRuadeRedondo)
+        self.heuristicas.append(heuristicasRuadeSãoMartinho)
         self.heuristicas.append(heuristicasCabeceiras)
         self.heuristicas.append(heuristicasCelorico)
         self.heuristicas.append(heuristicaRuaSantaMargarida)
@@ -133,7 +133,7 @@ class Heu:
 
     def getHeu(self, name, dest):
         for heu in self.heuristicas:
-            if heu[name] == 1:
+            if heu[name] == 0:
                 return heu[dest]
             elif heu[dest] == 0:
                 return heu[name]

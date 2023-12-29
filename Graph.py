@@ -59,16 +59,11 @@ class Grafo:
 
         if (rua1 not in self.m_nodes):
             self.m_nodes.append(rua1)
-            self.m_graph[rua1] = list()
-            
-        #else:
-        #    rua1 = self.get_node_by_name(rua1)   
+            self.m_graph[rua1] = list()  
 
         if (rua2 not in self.m_nodes):
             self.m_nodes.append(rua2)
             self.m_graph[rua2] = list()
-        #else:
-        #    rua2 = self.get_node_by_name(rua2)
 
         self.m_graph[rua1].append((rua2, weight))
 
