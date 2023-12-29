@@ -5,7 +5,7 @@ class Rua:
         self.freguesia = freguesia
 
     def __str__(self):
-        return self.nome + " " + self.freguesia
+        return self.nome + "," + self.freguesia
 
     def __repr__(self) -> str:
         return str(self)

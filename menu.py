@@ -1,4 +1,4 @@
-import rua as Rua
+from rua import *
 
 class Menu:
     def printMenu(self):
@@ -14,7 +14,7 @@ class Menu:
 
     def printRuas(self, ruas):
         for i,ruaN in enumerate(ruas):
-            print(f"[ {i} ] {ruaN}")
+            print(f"[ {i + 1} ] {ruaN}")
 
 
     def menu_cliente(self): #pode passar para a lista normal
