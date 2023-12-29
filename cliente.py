@@ -17,7 +17,7 @@ class Cliente:
     def getNome(self):
         return self.nome
     
-    def getRua(self):
+    def getRua(self): #passei para isto para facilitar no registo dos clientes
         return self.morada
     
     def __str__(self):
@@ -40,6 +40,7 @@ def carregarClientes(nome_ficheiro, ruas):
             nome_cliente = campo[1]
             nome_morada = campo[2]
             
+            #Garante que as ruas inseridas existem nas ruas conhecidas
             rua_cliente = None
             for rua in ruas:
                 if rua.getNome() == nome_morada:
@@ -54,5 +55,5 @@ def carregarClientes(nome_ficheiro, ruas):
 def guardarClientes(nome_ficheiro):
     with open(nome_ficheiro, 'w') as ficheiro:
         for cliente in Cliente.listaClientes:
-            linha = f"{cliente.getId()},{cliente.getNome()},{cliente.getRua()}\n"
+            linha = f"{cliente.getId()},{cliente.getNome()},{cliente.getRua().getRua()}\n"
             ficheiro.write(linha)

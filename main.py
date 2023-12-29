@@ -124,10 +124,12 @@ def main():
     g.add_edge(rua10, rua12, 1.9)
     g.add_edge(rua12, rua13, 0.9) 
 
-    #leitura dos ficheiros txt com os estafetas e clientes
+    #Leitura dos ficheiros .txt com os estafetas e clientes
     carregarEstafetas('./estafetas.txt')
     carregarClientes('./clientes.txt', lista_ruas)
 
+
+    #Interface
     m = Menu()
     print("\n******** BEM VINDO AO HEALTH PLANET ********\n")
 
@@ -143,22 +145,24 @@ def main():
             while opcao1 != 0:
                 m.menu_cliente()
                 opcao1 = int(input("Escolha opção: "))
+
+
                 #adicionar novo cliente - melhorar isto
                 if opcao1 == 1: 
-                    clienteNome = input("Escolha nome:")
+                    clienteNome = input("Escolha Nome: ")
                     
                     m.printRuas(lista_ruas)
-                    clienteRua = int(input("Escolha Rua:"))
-
+                    clienteRua = int(input("Escolha Rua (insira o número da rua): "))
                     if 1 <= clienteRua < len(lista_ruas):
                         rua_escolhida = lista_ruas[clienteRua - 1]
-                        print("Rua escolhida:", rua_escolhida)
+                        print("Rua escolhida: ", rua_escolhida)
                     
                         Cliente.adicionarCliente(clienteNome, rua_escolhida)
                         print("Cliente Criado.")
                 
                     else:
                         print("Índice fora dos limites da lista. Escolha inválida.")
+
 
                 #imprimir lista clientes - melhorar!
                 if opcao1 == 2:
@@ -214,10 +218,12 @@ def main():
         if userInput == 7:
             guardarEstafetas('./estafetas.txt')
             guardarClientes('./clientes.txt')
-            print("Alterações Guardadas!")
+            print("\nAlterações Guardadas!\n")
 
 
-        #acrescentar aqui cenas...      
+        #acrescentar aqui cenas...
+            
+                
         if userInput == 0: #Sair
             print("\nA sair...")
 

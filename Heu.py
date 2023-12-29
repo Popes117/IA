@@ -4,6 +4,23 @@ class Heu:
         self.heuristicas = list()
 
     def fillHeuristicas(self):
+        heuristicasCentral= {
+            "Central":0,
+            "Rua da Confeiteira":2,
+            "Rua de Redondo":2.4,
+            "Rua de São Martinho":1.9,
+            "Rua 5 de Outubro":1.2,
+            "Rua da Universidade":3.3,
+            "Rua Santa Margarida":2.3,
+            "Rua de São José":2.7,
+            "Rua do Raio":2.9,
+            "Avenida Dom Joao II":3.6, 
+            "Rua do Fujacal":2.7,
+            "Rua Joãozinho Azeredo":2.6, 
+            "Rua da Igreja":4.5, 
+            "Rua da Senra":4.1
+        }
+
         heuristicasRuadaConfeiteira= {
             "Rua da Confeiteira":0,
             "Rua de Redondo":2.4,
@@ -46,7 +63,7 @@ class Heu:
             "Rua da Igreja":2.5, 
             "Rua da Senra":1.8
         }
-        heuristicasCabeceiras= {
+        heuristicas5deOutubro= {
             "Rua 5 de Outubro":0,
             "Rua da Universidade":2.9,
             "Rua Santa Margarida":1.0,
@@ -58,7 +75,7 @@ class Heu:
             "Rua da Igreja":3.0, 
             "Rua da Senra":2.8
         }
-        heuristicasCelorico= {
+        heuristicasRuadaUniversidade= {
             "Rua da Universidade":0,
             "Rua Santa Margarida":1.9,
             "Rua de São José":1.4,
@@ -88,7 +105,7 @@ class Heu:
             "Rua da Igreja":2.2, 
             "Rua da Senra":2.1
         }
-        heuristicasGuimaraes= {
+        heuristicasRuadoRaio= {
             "Rua do Raio":0,
             "Avenida Dom Joao II":0.8, 
             "Rua do Fujacal":0.9,
@@ -96,40 +113,41 @@ class Heu:
             "Rua da Igreja":1.7, 
             "Rua da Senra":1.7
         }
-        heuristicasLanhoso= {
+        heuristicasAvenidaDomJoaoII= {
             "Avenida Dom Joao II":0, 
             "Rua do Fujacal":1.5,
             "Rua Joãozinho Azeredo":2.2, 
             "Rua da Igreja":1.6, 
             "Rua da Senra":2.1
         }
-        heuristicasBouro= {
+        heuristicasRuadoFujacal= {
             "Rua do Fujacal":0,
             "Rua Joãozinho Azeredo":0.7, 
             "Rua da Igreja":1.5, 
             "Rua da Senra":1
         }
-        heuristicasVieiraDoMinho= {
+        heuristicasRuaJoaozinhoAzeredo= {
             "Rua Joãozinho Azeredo":0, 
             "Rua da Igreja":2.3, 
             "Rua da Senra":1.3
         }
-        heuristicasFamalicao= {
+        heuristicasRuadaIgreja= {
             "Rua da Igreja":0, 
             "Rua da Senra":0.8
         }
+        self.heuristicas.append(heuristicasCentral)
         self.heuristicas.append(heuristicasRuadaConfeiteira)
         self.heuristicas.append(heuristicasRuadeRedondo)
         self.heuristicas.append(heuristicasRuadeSãoMartinho)
-        self.heuristicas.append(heuristicasCabeceiras)
-        self.heuristicas.append(heuristicasCelorico)
+        self.heuristicas.append(heuristicas5deOutubro)
+        self.heuristicas.append(heuristicasRuadaUniversidade)
         self.heuristicas.append(heuristicaRuaSantaMargarida)
         self.heuristicas.append(heuristicasRuadeSaoJose)
-        self.heuristicas.append(heuristicasGuimaraes)
-        self.heuristicas.append(heuristicasLanhoso)
-        self.heuristicas.append(heuristicasBouro)
-        self.heuristicas.append(heuristicasVieiraDoMinho)
-        self.heuristicas.append(heuristicasFamalicao)
+        self.heuristicas.append(heuristicasRuadoRaio)
+        self.heuristicas.append(heuristicasAvenidaDomJoaoII)
+        self.heuristicas.append(heuristicasRuadoFujacal)
+        self.heuristicas.append(heuristicasRuaJoaozinhoAzeredo)
+        self.heuristicas.append(heuristicasRuadaIgreja)
 
     def getHeu(self, name, dest):
         for heu in self.heuristicas:

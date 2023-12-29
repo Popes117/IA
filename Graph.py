@@ -8,8 +8,6 @@ import networkx as nx  # biblioteca de tratamento de grafos necessária para des
 import matplotlib.pyplot as plt  # idem
 
 
-
-
 class Grafo:
 
     def __init__(self, heuristica: Heu, directed=False):
@@ -60,6 +58,7 @@ class Grafo:
         if (rua1 not in self.m_nodes):
             self.m_nodes.append(rua1)
             self.m_graph[rua1] = list()  
+            print(rua1)
 
         if (rua2 not in self.m_nodes):
             self.m_nodes.append(rua2)
@@ -70,11 +69,6 @@ class Grafo:
         if not self.m_directed:
             self.m_graph[rua2].append((rua1, weight))
         
-
-    def imprimeGrafo(self):
-        print(self.m_graph)
-        print(self.m_nodes)
-
 
     #############################
     # Devolver nodos do Grafo
@@ -211,8 +205,8 @@ class Grafo:
         plt.show()
     
     
-    ##########################################3
-    #
+    #########################################
+        
     def calcula_est(self, estima):
         l = list(estima.keys())
         min_estima = estima[l[0]]
@@ -254,7 +248,7 @@ class Grafo:
                     n = v
                 else:
                     flag = 1
-                    calc_heurist[v] = g[v] + self.m_h.getHeu(v,end)
+                    calc_heurist[v] = g[v] + self.m_h.getHeu(v.getNome(),end.getNome())
             if flag == 1:
                 min_estima = self.calcula_est(calc_heurist)
                 n = min_estima
@@ -276,7 +270,7 @@ class Grafo:
                 reconst_path.reverse()
 
                 #print('Path found: {}'.format(reconst_path))
-                return (reconst_path, self.calcula_custo(reconst_path), open_list.add(closed_list))
+                return (reconst_path, self.calcula_custo(reconst_path), open_list)
 
             # for all neighbors of the current node do
             for (m, weight) in self.getNeighbours(n):  # definir função getneighbours  tem de ter um par nodo peso
