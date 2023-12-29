@@ -1,4 +1,3 @@
-import rua as Rua
 
 class Menu:
     def printMenu(self):

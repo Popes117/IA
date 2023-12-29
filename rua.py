@@ -7,14 +7,24 @@ class Rua:
     def __str__(self):
         return self.nome + " " + self.freguesia
 
-    def __repr__(self):
-        return self.nome
+    def __repr__(self) -> str:
+        return str(self)
 
     def getNome(self):
         return self.nome
 
     def getFreguesia(self):
         return self.freguesia
+    
+    def getRua(self):
+        return (" ".join([self.nome,self.freguesia]))
 
-    def __eq__(self,other): 
-        return self.nome == other.nome # são iguais se nome igual
+    def __hash__(self):
+        # Combine os hashes dos atributos que compõem a identidade do objeto
+        return hash((self.nome, self.freguesia))
+
+    def __eq__(self, other):
+        # Verifique se os atributos que compõem a identidade são iguais
+        return (isinstance(other, Rua) and
+                self.nome == other.nome and
+                self.freguesia == other.freguesia)

@@ -1,15 +1,13 @@
-#Inteligência Artificial
-#2022/23
-
 # Classe grafo para representaçao de grafos,
 import math
 from queue import Queue
 from rua import Rua
+from Heu import Heu
 
 import networkx as nx  # biblioteca de tratamento de grafos necessária para desnhar graficamente o grafo
 import matplotlib.pyplot as plt  # idem
 
-import Heu
+
 
 
 class Grafo:
@@ -26,23 +24,24 @@ class Grafo:
     def __str__(self):
         out = ""
         for key in self.m_graph.keys():
-            out = out + "node" + str(key) + ": " + str(self.m_graph[key]) + "\n"
+            out = out + "rua " + str(key) + ": " + str(self.m_graph[key]) + "\n"
             return out
 
     ################################
     # Encontrar nodo pelo nome
     ################################
 
-    def get_node_by_name(self, name:str):
+    def get_node_by_name(self, rua):
         for node in self.m_nodes:
-            if node.getNome() == name:
+            print(node)
+            if node.getRua() == rua.getRua():
                 return node
-            else:
-                return None
 
-    ##############################3
+        return None
+
+    ###############################
     # Imprimir arestas
-    ############################333333
+    ###############################
 
     def imprime_aresta(self):
         listaA = ""
@@ -53,26 +52,33 @@ class Grafo:
         return listaA
 
     #############################
-    # Adicionar   aresta no grafo
+    # Adicionar aresta no grafo
     #############################
    
-    def add_edge(self, rua1:Rua, rua2:Rua, weight):
+    def add_edge(self, rua1: Rua, rua2: Rua, weight): #nome freguesia
+
         if (rua1 not in self.m_nodes):
             self.m_nodes.append(rua1)
             self.m_graph[rua1] = list()
-        else:
-            rua1 = self.get_node_by_name(rua1)   
+            
+        #else:
+        #    rua1 = self.get_node_by_name(rua1)   
 
         if (rua2 not in self.m_nodes):
             self.m_nodes.append(rua2)
             self.m_graph[rua2] = list()
-        else:
-            rua2 = self.get_node_by_name(rua2)
+        #else:
+        #    rua2 = self.get_node_by_name(rua2)
 
         self.m_graph[rua1].append((rua2, weight))
+
         if not self.m_directed:
             self.m_graph[rua2].append((rua1, weight))
+        
 
+    def imprimeGrafo(self):
+        print(self.m_graph)
+        print(self.m_nodes)
 
 
     #############################
@@ -86,11 +92,11 @@ class Grafo:
     # Devolver o custo de uma aresta
     ################################
 
-    def get_arc_cost(self, node1, node2):
+    def get_arc_cost(self, rua1, rua2):
         custoT = math.inf
-        a = self.m_graph[node1]  # lista de arestas para aquele nodo
+        a = self.m_graph[rua1]  # lista de arestas para aquele nodo
         for (nodo, custo) in a:
-            if nodo == node2:
+            if nodo == rua2:
                 custoT = custo
 
         return custoT
@@ -112,7 +118,7 @@ class Grafo:
 
     ################################################################################
     # Procura DFS
-    ####################################################################################
+    ################################################################################
 
     def procura_DFS(self, start, end, path=[], visited=set()):
         path.append(start)
@@ -184,22 +190,22 @@ class Grafo:
             lista.append((adjacente, peso))
         return lista
 
-    ###############################
-    #  Desenha grafo  modo grafico
-    ###############################
+    #############################################################
+    #  Desenha grafo  modo grafico através da biblioteca networkx
+    #############################################################
 
-    """ def desenha(self):
-        ##criar lista de vertices
+    def desenha(self):
+        #criar lista de vertices
         lista_v = self.m_nodes
-        lista_a = []
+        #lista_a = []
         g = nx.Graph()
         for nodo in lista_v:
-            n = nodo.getName()
-            g.add_node(n)
-            for (adjacente, peso) in self.m_graph[n]:
-                lista = (n, adjacente)
+            g.add_node(nodo) #problema é que os valores atraves de gets seriam strings e nós colocamos os valores como Rua e duplicava tudo
+
+            for (adjacente, peso) in self.m_graph[nodo]:
+                #lista = (nodo, adjacente)
                 # lista_a.append(lista)
-                g.add_edge(n, adjacente, weight=peso)
+                g.add_edge(nodo, adjacente, weight=peso)
 
         pos = nx.spring_layout(g)
         nx.draw_networkx(g, pos, with_labels=True, font_weight='bold')
@@ -208,7 +214,8 @@ class Grafo:
 
         plt.draw()
         plt.show()
-    """
+    
+    
     ##########################################3
     #
     def calcula_est(self, estima):

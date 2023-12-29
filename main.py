@@ -1,11 +1,11 @@
-import Graph
+from Graph import Grafo
 from estafeta import *
 from transporte import *
 from encomenda import *
 from rua import *
 from cliente import *
-import Heu
-import menu
+from Heu import Heu
+from menu import *
 
 listEncomendas = list()
 
@@ -60,17 +60,18 @@ client5 = Cliente(5, "Carla Sousa", rua12)
 client6 = Cliente(6, "Hugo Fernandes",rua6)
 client7 = Cliente(7, "Beatriz Santos", rua7)
 client8 = Cliente(8, "André Martins", rua10)
-listEstafetas.append(client1)
-listEstafetas.append(client2)
-listEstafetas.append(client3)
-listEstafetas.append(client4)
-listEstafetas.append(client5)
-listEstafetas.append(client6)
-listEstafetas.append(client7)
-listEstafetas.append(client8)
+listClientes.append(client1)
+listClientes.append(client2)
+listClientes.append(client3)
+listClientes.append(client4)
+listClientes.append(client5)
+listClientes.append(client6)
+listClientes.append(client7)
+listClientes.append(client8)
 
-g = Graph()
-#deve ser aqui substituido por ruax ??? - valores a serem alterados
+
+
+g = Grafo(heuristicas)
 g.add_edge(rua1, rua2, 2.8) #rua1, rua2
 g.add_edge(rua1, rua4, 1.7) #rua1, rua4
 g.add_edge(rua1, rua6, 3.6) #rua1, rua6
@@ -104,12 +105,19 @@ g.add_edge(rua12, rua13, 0.9) #rua12, rua13
 
 """ Zé: Corrigir os algoritmos(Greedy) e testar os outros(BFS, DFS, A*)
         Implementar a decisão de transporte
+
+    Marta: 
+           Melhorar menu
+           Melhorar AdicionarCliente e AdicionarEstafeta
+
 """ 
 run = True
-m = menu() 
+m = Menu() 
 while run:
         m.printMenu()
         userInput = int(input("Escolha opção: "))
+        if userInput == 1:
+                g.desenha()
         if userInput == 3:
                 clienteNome = input("Escolha nome:")
                 print("[1] ", rua1)

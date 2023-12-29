@@ -1,12 +1,12 @@
 class Estafeta:
     
     #acho que nao precisa ter aqui localização
-    def __init__(self, id, nome, avaliacao, transport):
+    def __init__(self, id, nome, somaAvaliacao, nrEncomendas):
         self.id = id
         self.nome = nome
-        self.avaliacao = avaliacao
+        self.somaAvaliacao = somaAvaliacao
         #self.localizacao = localizacao
-        self.transport = transport
+        self.nrEncomendas = nrEncomendas
 
     #def changeLocal(self, newLocal: str):
     #    self.localizacao = newLocal
@@ -17,9 +17,15 @@ class Estafeta:
 
     def getNome(self):
         return self.nome
+    
+    def getSomaAval(self):
+        return self.somaAvaliacao
+    
+    def getNrEnc(self):
+        return self.nrEncomendas
 
     def getAvaliacao(self):
-        return self.avaliacao
+        return self.somaAvaliacao / self.nrEncomendas
 
     #def move(self, newLocal: str):
     #    self.localizacao = newLocal
