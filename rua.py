@@ -17,7 +17,7 @@ class Rua:
         return self.freguesia
     
     def getRua(self):
-        return (" ".join([self.nome,self.freguesia]))
+        return (", ".join([self.nome,self.freguesia]))
 
     def __hash__(self):
         # Combine os hashes dos atributos que compõem a identidade do objeto

@@ -48,7 +48,7 @@ class Grafo:
         lista = self.m_graph.keys()
         for nodo in lista:
             for (nodo2, custo) in self.m_graph[nodo]:
-                listaA = listaA + nodo + " ->" + nodo2 + " custo:" + str(custo) + "\n"
+                listaA = listaA + nodo.getRua() + " -> " + nodo2.getRua() + " custo: " + str(custo) + "\n"
         return listaA
 
     #############################

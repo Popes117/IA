@@ -1,4 +1,6 @@
 class Estafeta:
+    listaEstafeta = [] #mudar para dicionario talvez seja melhor
+    ultimo_id = 0
     
     #acho que nao precisa ter aqui localização
     def __init__(self, id, nome, somaAvaliacao, nrEncomendas):
@@ -7,6 +9,9 @@ class Estafeta:
         self.somaAvaliacao = somaAvaliacao
         #self.localizacao = localizacao
         self.nrEncomendas = nrEncomendas
+        Estafeta.listaEstafeta.append(self)
+        Estafeta.ultimo_id = id
+        
 
     #def changeLocal(self, newLocal: str):
     #    self.localizacao = newLocal
@@ -25,7 +30,50 @@ class Estafeta:
         return self.nrEncomendas
 
     def getAvaliacao(self):
-        return self.somaAvaliacao / self.nrEncomendas
+        if self.nrEncomendas == 0:
+            return 0
+        return round((self.somaAvaliacao / self.nrEncomendas),2)
+    
+
+    #provavelmente será necessario acrescentar a mudança na lista!!!
+    def updateSomaAval(self, aval):
+        self.somaAvaliacao += aval
+
+    def updateNrEnc(self):
+        self.nrEncomendas += 1
+        
 
     #def move(self, newLocal: str):
     #    self.localizacao = newLocal
+
+    def __str__(self):
+        return "("+ str(self.id) + ", " + self.nome + ", " + str(self.getAvaliacao()) + ")"
+
+    def __repr__(self) -> str:
+        return str(self)
+
+
+    def adicionarEstafeta(nome, soma, nr):
+        id = Estafeta.ultimo_id + 1
+        Estafeta(id, nome, soma, nr)
+
+
+    
+def carregarEstafetas(nome_ficheiro):
+    with open(nome_ficheiro, 'r') as ficheiro:
+        for linha in ficheiro:
+            campo = linha.strip().split(',')
+            id_estafeta = int(campo[0])
+            nome_estafeta = campo[1]
+            soma_avaliacao = int(campo[2])
+            nr_encomendas = int(campo[3])
+            Estafeta(id_estafeta, nome_estafeta,soma_avaliacao,nr_encomendas)
+            #print(Estafeta.listaEstafeta)
+
+def guardarEstafetas(nome_ficheiro):
+    with open(nome_ficheiro, 'w') as ficheiro:
+        for estafeta in Estafeta.listaEstafeta:
+            linha = f"{estafeta.getId()},{estafeta.getNome()},{estafeta.getSomaAval()},{estafeta.getNrEnc()}\n"
+            ficheiro.write(linha)
+
+    

@@ -1,0 +1,9 @@
+1,João Afonso,15,5
+2,Maria Alberta,14,3
+3,António Moura,19,7
+4,Francisca Maria,21,5
+5,José Oliveira,50,10
+6,Gonçalo Machado,31,7
+7,Maria João,100,50
+8,Pedro Lopes,42,9
+9,Marta Rodrigues,79,16
