@@ -76,4 +76,25 @@ def guardarEstafetas(nome_ficheiro):
             linha = f"{estafeta.getId()},{estafeta.getNome()},{estafeta.getSomaAval()},{estafeta.getNrEnc()}\n"
             ficheiro.write(linha)
 
+def chooseTransport(peso,custo,tempoLimite):
+    mota = True
+    bicla = True
+
+    if peso > 5:
+            bicla = False
+    if peso > 20:
+        mota = False
+    tempoBicla = (custo/10-(peso*0.6)) * 60
+    tempoMota = (custo/35-(peso*0.5)) * 60
+    tempoCarro =(custo/50-(peso*0.1)) * 60
+
+    if tempoBicla <= tempoLimite and bicla:
+        return "Bicicleta",tempoBicla
+    if tempoMota <= tempoLimite and mota:
+        return "Mota",tempoMota
+    else:
+        return "Carro",tempoCarro
+
+    
+
     
