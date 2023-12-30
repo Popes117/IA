@@ -37,3 +37,16 @@ class Menu:
         print("[2] Gerar Circuito de Entrega") #meter aqui os varios tipos de algoritmos
         print("[3] Realizar Encomendas") #recebe uma ou varias encomendas
 
+        def printAlgoritmos(self):
+        print("[1] A*")
+        print("[1] Greedy")
+        print("[1] BFS")
+        print("[1] DFS")
+
+    def printTransporte(self, trans):
+        if trans == 1:
+            print("Bicicleta")
+        if trans == 2:
+            print("Mota")
+        if trans == 3:
+            print("Carro")
