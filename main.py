@@ -8,7 +8,7 @@ from Heu import Heu
 from menu import *
 
 """ Zé: Corrigir os algoritmos(Greedy) e testar os outros(BFS, DFS, A*)
-        Implementar a decisão de transporte
+        Testar a decisão de transporte
 
     Marta: 
 
@@ -16,7 +16,7 @@ from menu import *
 
 def main():
     listEncomendas = list()
-
+    idEncomenda = 0
 
     heuristicas = Heu()
     heuristicas.fillHeuristicas() #mudar esta funcao
@@ -156,17 +156,53 @@ def main():
             encomendaIdC = int(input("Id Cliente: "))
             peso = float(input("Peso da Encomenda: "))
             volume = float(input("Volume da encomenda(em centímetros cúbicos): "))
-            hora_limite = input("Hora limite de entrega(hh:mm): ")
-            morada = rua1
+            tempoLimite = int(input("Hora limite de entrega(minutos): "))
+            morada = rua0
+            m.printAlgoritmos()
+            algoritmo = int(input("Escolha o algoritmo que deseja utilizar: "))
+            for estafeta in Estafeta.listaEstafeta:
+                print(str(estafeta))
+            estafeta = int(input("Escolha Estafeta: "))
             
+            rua = None
             for cliente in Cliente.listaClientes:
                 if cliente.getId() == encomendaIdC:
-                    encomenda = Encomenda(0,encomendaIdC,peso,volume,hora_limite,cliente.getRua())
-                    (path, custo, visitados) = g.procura_aStar(cliente.getRua(),morada)
-                    print(path)
-                    print(custo)
-                    print(visitados)
+                    encomenda = Encomenda(idEncomenda,encomendaIdC,estafeta,peso,volume,tempoLimite,cliente.getRua())
+                    idEncomenda += 1
+                    listEncomendas.append(encomenda)
+                    rua = cliente.getRua()
                     break
+            
+            (path, custo, visitados) = (None,None,None)
+            if algoritmo == 1:
+                (path, custo, visitados) = g.procura_aStar(rua,morada)
+            elif algoritmo == 2:
+                (path, custo, visitados) = g.greedy(rua,morada)
+            elif algoritmo == 3:
+                (path, custo, visitados) = g.procura_BFS(rua,morada)
+            elif algoritmo == 4:
+                (path, custo, visitados) = g.procura_DFS(rua,morada)
+            else:
+                print("Input inválido")
+            if path != None:
+                trans,tempoGasto = chooseTransport(peso,custo,tempoLimite)
+                print(f"Caminho escolhido: {path}")
+                print(f"Nodos Visitados: {visitados}")
+                print(f"Transporte Escolhido: {trans}")
+
+                aval = 5
+                if tempoGasto <= tempoLimite:
+                    pass
+                else:
+                    percentAtraso = (tempoGasto - tempoLimite)/tempoLimite
+                    aval = avalia(percentAtraso)
+                    # falta a função q eu te pedi para atualizar encomenda
+
+                
+
+            else: 
+                print("Caminho não encontrado.")
+                
             
 
                       
