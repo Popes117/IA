@@ -191,11 +191,18 @@ def main():
                 print(f"Transporte Escolhido: {trans}")
 
                 aval = 5
+                
                 if tempoGasto <= tempoLimite:
                     pass
                 else:
                     percentAtraso = (tempoGasto - tempoLimite)/tempoLimite
+                    print(percentAtraso)
                     aval = avalia(percentAtraso)
+                    print(aval)
+                    estafeta_escolhido = Estafeta.listaEstafeta[estafeta-1]
+                    classif = estafeta_escolhido.updateAvaliacao(aval)
+                    print(classif)
+
                     # falta a função q eu te pedi para atualizar encomenda
 
                 
