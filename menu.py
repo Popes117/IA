@@ -30,3 +30,10 @@ class Menu:
         print("[2] Ver Lista Estafetas")
         print("[0] Voltar ao menu principal")
 
+
+    def menu_encomendas(self):
+        print("\n******** Encomendar ********")
+        print("[1] Registar Nova Encomenda") #??
+        print("[2] Gerar Circuito de Entrega") #meter aqui os varios tipos de algoritmos
+        print("[3] Realizar Encomendas") #recebe uma ou varias encomendas
+

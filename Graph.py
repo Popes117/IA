@@ -58,7 +58,6 @@ class Grafo:
         if (rua1 not in self.m_nodes):
             self.m_nodes.append(rua1)
             self.m_graph[rua1] = list()  
-            print(rua1)
 
         if (rua2 not in self.m_nodes):
             self.m_nodes.append(rua2)
@@ -109,13 +108,17 @@ class Grafo:
     # Procura DFS
     ################################################################################
 
-    def procura_DFS(self, start, end, path=[], visited=set()):
+    def procura_DFS(self, start : Rua, end, path=[], visited=set()):
         path.append(start)
         visited.add(start)
 
         if start == end:
             # calcular o custo do caminho funçao calcula custo.
             custoT = self.calcula_custo(path)
+            print ("A procura DFS entre a posição inicial e final é:",path,"com o custo",custoT)
+            print(" ")
+            print ("Sendo que o caminho percorrido foi:", visited)
+
             return (path, custoT)
         for (adjacente, peso) in self.m_graph[start]:
             if adjacente not in visited:
@@ -129,7 +132,7 @@ class Grafo:
     # Procura BFS
     ######################################################
 
-    def procura_BFS(self, start, end):
+    def procura_BFS(self, start: Rua, end):
         # definir nodos visitados para evitar ciclos
         visited = set()
         fila = Queue()
@@ -154,10 +157,7 @@ class Grafo:
                         parent[adjacente] = nodo_atual
                         visited.add(adjacente)
 
-
-
         # Reconstruir o caminho
-
         path = []
         if path_found:
             path.append(end)
@@ -167,7 +167,12 @@ class Grafo:
             path.reverse()
             # funçao calcula custo caminho
             custo = self.calcula_custo(path)
+            print ("A procura BFS entre a posição inicial e final é:",path,"com custo",custo)
+            print(" ")
+            print ("Sendo que o caminho percorrido foi:", visited)
         return (path, custo, visited)
+
+
 
     ###################################################
     # Função   getneighbours, devolve vizinhos de um nó
@@ -178,6 +183,8 @@ class Grafo:
         for (adjacente, peso) in self.m_graph[nodo]:
             lista.append((adjacente, peso))
         return lista
+    
+
 
     #############################################################
     #  Desenha grafo  modo grafico através da biblioteca networkx

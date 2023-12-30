@@ -10,33 +10,12 @@ from menu import *
 """ Zé: Corrigir os algoritmos(Greedy) e testar os outros(BFS, DFS, A*)
         Implementar a decisão de transporte
 
-    Marta: Melhorar AdicionarCliente e AdicionarEstafeta
+    Marta: 
 
 """ 
 
 def main():
     listEncomendas = list()
-
-    # apagar!
-    #listEstafetas = list()
-    #e1 = Estafeta(1,"João Afonso",15,5)
-    #e2 = Estafeta(2,"Maria Alberta",14,3)
-    #e3 = Estafeta(3,"António Moura",19,7)
-    #e4 = Estafeta(4,"Francisca Maria",21,5)
-    #e5 = Estafeta(5,"José Oliveira",50,10)
-    #e6 = Estafeta(6,"Gonçalo Machado",31,7)
-    #e7 = Estafeta(7,"Maria João",100,50)
-    #e8 = Estafeta(8,"Pedro Lopes",42,9)
-    #e9 = Estafeta(9,"Marta Rodrigues",79,16)
-    #listEstafetas.append(e1)
-    #listEstafetas.append(e2)
-    #listEstafetas.append(e3)
-    #listEstafetas.append(e4)
-    #listEstafetas.append(e5)
-    #listEstafetas.append(e6)
-    #listEstafetas.append(e7)
-    #listEstafetas.append(e8)
-    #listEstafetas.append(e9)
 
 
     heuristicas = Heu()
@@ -62,25 +41,6 @@ def main():
     rua12 = Rua("Rua da Igreja", "Nogueira")
     rua13 = Rua("Rua da Senra", "Lamacães")
     lista_ruas = [rua1,rua2,rua3,rua4,rua5,rua6,rua7,rua8,rua9,rua10,rua11,rua12,rua13]
-
-    # apagar!
-    #listClientes = list()
-    #client1 = Cliente(1, "Ana Silva", rua3)
-    #client2 = Cliente(2, "José Pereira", rua1)
-    #client3 = Cliente(3, "Mariana Costa", rua5)
-    #client4 = Cliente(4, "Rui Oliveira", rua9)
-    #client5 = Cliente(5, "Carla Sousa", rua12)
-    #client6 = Cliente(6, "Hugo Fernandes",rua6)
-    #client7 = Cliente(7, "Beatriz Santos", rua7)
-    #client8 = Cliente(8, "André Martins", rua10)
-    #listClientes.append(client1)
-    #listClientes.append(client2)
-    #listClientes.append(client3)
-    #listClientes.append(client4)
-    #listClientes.append(client5)
-    #listClientes.append(client6)
-    #listClientes.append(client7)
-    #listClientes.append(client8)
 
 
     g = Grafo(heuristicas)
@@ -124,6 +84,7 @@ def main():
     g.add_edge(rua10, rua12, 1.9)
     g.add_edge(rua12, rua13, 0.9) 
 
+
     #Leitura dos ficheiros .txt com os estafetas e clientes
     carregarEstafetas('./estafetas.txt')
     carregarClientes('./clientes.txt', lista_ruas)
@@ -164,10 +125,12 @@ def main():
                         print("Índice fora dos limites da lista. Escolha inválida.")
 
 
-                #imprimir lista clientes - melhorar!
+                #Imprimir Lista de Clientes Registados
                 if opcao1 == 2:
-                    #print(listClientes)
-                    print(Cliente.listaClientes)
+                    print("\n**** Clientes ****")
+                    for cliente in Cliente.listaClientes:
+                        print(str(cliente))
+
 
         #Opcoes Estafeta
         if userInput == 2:
@@ -182,10 +145,11 @@ def main():
                     Estafeta.adicionarEstafeta(estafetaNome,0,0)
 
                 
-                #imprimir lista estafetas -melhorar!
+                #Imprimir Lista de Estafetas Registados
                 if opcao2 == 2:
-                    #print(listEstafetas)
-                    print(Estafeta.listaEstafeta)
+                    print("\n**** Estafetas ****")
+                    for estafeta in Estafeta.listaEstafeta:
+                        print(str(estafeta))
 
 
         if userInput == 3:
@@ -222,13 +186,13 @@ def main():
 
 
         #acrescentar aqui cenas...
-            
+    
                 
         if userInput == 0: #Sair
             print("\nA sair...")
 
         else:
-            print("Input inválido.")
+            print("Input inválido.\n")
 
 
 if __name__ == "__main__":
