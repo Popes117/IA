@@ -31,6 +31,17 @@ class Cliente:
         id = Cliente.ultimo_id + 1
         Cliente(id, nome, morada)
     
+def avalia(percentAtraso):
+    if percentAtraso >=  0.95:
+        return 5
+    elif percentAtraso >=  0.8:
+        return 4
+    elif percentAtraso >=  0.6:
+        return 3
+    elif percentAtraso >=  0.4:
+        return 2
+    else:
+        return 1
 
 def carregarClientes(nome_ficheiro, ruas):
     with open(nome_ficheiro, 'r') as ficheiro:
@@ -57,3 +68,5 @@ def guardarClientes(nome_ficheiro):
         for cliente in Cliente.listaClientes:
             linha = f"{cliente.getId()},{cliente.getNome()},{cliente.getRua().getRua()}\n"
             ficheiro.write(linha)
+
+        
