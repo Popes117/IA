@@ -8,7 +8,7 @@ from Heu import Heu
 from menu import *
 
 """ Zé: Corrigir os algoritmos(Greedy) e testar os outros(BFS, DFS, A*)
-        Testar a decisão de transporte
+        Testar a decisao de transporte
 
     Marta: 
 
@@ -26,20 +26,20 @@ def main():
     t2 = Transporte("Mota", 20, 35)
     t3 = Transporte("Carro", 100, 50)
 
-    rua0 = Rua("Central", "São Lázaro") #Central da Health Planet
+    rua0 = Rua("Central", "Sao Lazaro") #Central da Health Planet
     rua1 = Rua("Rua da Confeiteira", "Palmeira")
     rua2 = Rua("Rua de Redondo", "Adaufe")
-    rua3 = Rua("Rua de São Martinho", "Dume")
+    rua3 = Rua("Rua de Sao Martinho", "Dume")
     rua4 = Rua("Rua 5 de Outubro", "Real")
     rua5 = Rua("Rua da Universidade", "Gualtar")
-    rua6 = Rua("Rua Santa Margarida", "São Vicente")
-    rua7 = Rua("Rua de São José", "São Vitor")
-    rua8 = Rua("Rua do Raio", "São Vitor")
-    rua9 = Rua("Avenida Dom Joao II", "Nogueiró")
-    rua10 = Rua("Rua do Fujacal", "São Lazaro")
-    rua11 = Rua("Rua Joãozinho Azeredo", "Maximinos")
+    rua6 = Rua("Rua Santa Margarida", "Sao Vicente")
+    rua7 = Rua("Rua de Sao Jose", "Sao Vitor")
+    rua8 = Rua("Rua do Raio", "Sao Vitor")
+    rua9 = Rua("Avenida Dom Joao II", "Nogueiro")
+    rua10 = Rua("Rua do Fujacal", "Sao Lazaro")
+    rua11 = Rua("Rua Joaozinho Azeredo", "Maximinos")
     rua12 = Rua("Rua da Igreja", "Nogueira")
-    rua13 = Rua("Rua da Senra", "Lamacães")
+    rua13 = Rua("Rua da Senra", "Lamacaes")
     lista_ruas = [rua1,rua2,rua3,rua4,rua5,rua6,rua7,rua8,rua9,rua10,rua11,rua12,rua13]
 
 
@@ -98,14 +98,14 @@ def main():
     while userInput != 0:
 
         m.printMenu()
-        userInput = int(input("Escolha opção: "))
+        userInput = int(input("Escolha opcao: "))
 
-        #Opçoes Cliente
+        #Opcoes Cliente
         if userInput == 1: 
             opcao1 = -1
             while opcao1 != 0:
                 m.menu_cliente()
-                opcao1 = int(input("Escolha opção: "))
+                opcao1 = int(input("Escolha opcao: "))
 
 
                 #adicionar novo cliente - melhorar isto
@@ -137,7 +137,7 @@ def main():
             opcao2 = -1
             while opcao2 != 0:
                 m.menu_estafetas()
-                opcao2 = int(input("Escolha opção: "))
+                opcao2 = int(input("Escolha opcao: "))
                 
                 #adicionar novo estafeta
                 if opcao2 == 1: 
@@ -172,10 +172,12 @@ def main():
                     listEncomendas.append(encomenda)
                     rua = cliente.getRua()
                     break
-            
+            print(rua)
+
+
             (path, custo, visitados) = (None,None,None)
             if algoritmo == 1:
-                (path, custo, visitados) = g.procura_aStar(rua,morada)
+                path, custo, visitados = g.procura_aStar(rua,morada)
             elif algoritmo == 2:
                 (path, custo, visitados) = g.greedy(rua,morada)
             elif algoritmo == 3:
@@ -185,30 +187,30 @@ def main():
             else:
                 print("Input inválido")
             if path != None:
-                trans,tempoGasto = chooseTransport(peso,custo,tempoLimite)
+                estafetaEsc = Estafeta.listaEstafeta[estafeta-1]
+                trans,tempoGasto = estafetaEsc.chooseTransport(peso,custo,tempoLimite)
                 print(f"Caminho escolhido: {path}")
                 print(f"Nodos Visitados: {visitados}")
                 print(f"Transporte Escolhido: {trans}")
 
                 aval = 5
-                
                 if tempoGasto <= tempoLimite:
+                    print(f"Tempo de entrega: {tempoGasto}")
+                    print("Avaliação dada: 5")
                     pass
                 else:
                     percentAtraso = (tempoGasto - tempoLimite)/tempoLimite
                     print(percentAtraso)
-                    aval = avalia(percentAtraso)
+                    aval = avalia(1-percentAtraso)
                     print(aval)
                     estafeta_escolhido = Estafeta.listaEstafeta[estafeta-1]
                     classif = estafeta_escolhido.updateAvaliacao(aval)
                     print(classif)
 
-                    # falta a função q eu te pedi para atualizar encomenda
-
                 
 
             else: 
-                print("Caminho não encontrado.")
+                print("Caminho nao encontrado.")
                 
             
 
@@ -221,11 +223,11 @@ def main():
         if userInput == 6:
             g.desenha()
             
-        #Guardar alterações
+        #Guardar alteracões
         if userInput == 7:
             guardarEstafetas('./estafetas.txt')
             guardarClientes('./clientes.txt')
-            print("\nAlterações Guardadas!\n")
+            print("\nAlteracões Guardadas!\n")
 
 
         #acrescentar aqui cenas...
