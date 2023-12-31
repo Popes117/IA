@@ -1,8 +1,8 @@
-1,Ana Silva,Rua de São Martinho, Dume
-2,José Pereira,Rua da Confeiteira, Palmeira
+2,Jose Pereira,Rua da Confeiteira, Palmeira
 3,Mariana Costa,Rua da Universidade, Gualtar
-4,Rui Oliveira,Avenida Dom Joao II, Nogueiró
+4,Rui Oliveira,Avenida Dom Joao II, Nogueiro
 5,Carla Sousa,Rua da Igreja, Nogueira
-6,Hugo Fernandes,Rua Santa Margarida, São Vicente
-7,Beatriz Santos,Rua de São José, São Vitor
-8,André Martins,Rua do Fujacal, São Lazaro
+6,Hugo Fernandes,Rua Santa Margarida, Sao Vicente
+7,Beatriz Santos,Rua de Sao Jose, Sao Vitor
+8,Andre Martins,Rua do Fujacal, Sao Lazaro
+1,Ana Silva,Rua de Sao Martinho, Dume
