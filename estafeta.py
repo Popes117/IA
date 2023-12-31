@@ -1,3 +1,5 @@
+from transporte import *
+
 class Estafeta:
     listaEstafeta = [] #mudar para dicionario talvez seja melhor
     ultimo_id = 0
@@ -7,7 +9,6 @@ class Estafeta:
         self.id = id
         self.nome = nome
         self.somaAvaliacao = somaAvaliacao
-        #self.localizacao = localizacao
         self.nrEncomendas = nrEncomendas
         Estafeta.listaEstafeta.append(self)
         Estafeta.ultimo_id = id
@@ -34,9 +35,14 @@ class Estafeta:
             return 0
         return round((self.somaAvaliacao / self.nrEncomendas),2)
     
-    def updateAvaliacao(self,aval):
+
+    #provavelmente será necessario acrescentar a mudança na lista!!!
+    def updateSomaAval(self, aval):
         self.somaAvaliacao += aval
+
+    def updateNrEnc(self):
         self.nrEncomendas += 1
+        
 
     #def move(self, newLocal: str):
     #    self.localizacao = newLocal
@@ -51,6 +57,33 @@ class Estafeta:
     def adicionarEstafeta(nome, soma, nr):
         id = Estafeta.ultimo_id + 1
         Estafeta(id, nome, soma, nr)
+
+    def updateAvaliacao(self,aval):
+        self.somaAvaliacao += aval
+        self.nrEncomendas += 1
+
+    def chooseTransport(self,peso,custo,tempoLimite):
+        mota = True
+        bicla = True
+
+        if peso > 5:
+            bicla = False
+        if peso > 20:
+            mota = False
+        tempoBicla = (custo/(10-(peso*0.6))) * 60
+        tempoMota = (custo/(35-(peso*0.5))) * 60
+        tempoCarro =(custo/(50-(peso*0.1))) * 60
+
+        atrasoDesejado = tempoLimite + tempoLimite*(self.somaAvaliacao/self.nrEncomendas)/5
+        print(f"Tempo Bicla: {tempoBicla}")
+        print(f"Tempo Mota: {tempoMota}")
+        print(f"Tempo Max: {atrasoDesejado}")
+        if tempoBicla <= atrasoDesejado and bicla:
+            return "Bicicleta",tempoBicla
+        if tempoMota <= atrasoDesejado and mota:
+            return "Mota",tempoMota
+        else:
+            return "Carro",tempoCarro
 
 
     
@@ -71,25 +104,6 @@ def guardarEstafetas(nome_ficheiro):
             linha = f"{estafeta.getId()},{estafeta.getNome()},{estafeta.getSomaAval()},{estafeta.getNrEnc()}\n"
             ficheiro.write(linha)
 
-def chooseTransport(peso,custo,tempoLimite):
-    mota = True
-    bicla = True
 
-    if peso > 5:
-            bicla = False
-    if peso > 20:
-        mota = False
-    tempoBicla = (custo/10-(peso*0.6)) * 60
-    tempoMota = (custo/35-(peso*0.5)) * 60
-    tempoCarro =(custo/50-(peso*0.1)) * 60
-
-    if tempoBicla <= tempoLimite and bicla:
-        return "Bicicleta",tempoBicla
-    if tempoMota <= tempoLimite and mota:
-        return "Mota",tempoMota
-    else:
-        return "Carro",tempoCarro
-
-    
 
     
