@@ -35,14 +35,15 @@ class Estafeta:
             return 0
         return round((self.somaAvaliacao / self.nrEncomendas),2)
     
-
+    """
+    por enquanto nao é necessario existir
     #provavelmente será necessario acrescentar a mudança na lista!!!
     def updateSomaAval(self, aval):
         self.somaAvaliacao += aval
 
     def updateNrEnc(self):
         self.nrEncomendas += 1
-        
+    """
 
     #def move(self, newLocal: str):
     #    self.localizacao = newLocal

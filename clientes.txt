@@ -1,3 +1,4 @@
+1,Ana Silva,Rua de Sao Martinho, Dume
 2,Jose Pereira,Rua da Confeiteira, Palmeira
 3,Mariana Costa,Rua da Universidade, Gualtar
 4,Rui Oliveira,Avenida Dom Joao II, Nogueiro
@@ -5,4 +6,5 @@
 6,Hugo Fernandes,Rua Santa Margarida, Sao Vicente
 7,Beatriz Santos,Rua de Sao Jose, Sao Vitor
 8,Andre Martins,Rua do Fujacal, Sao Lazaro
-1,Ana Silva,Rua de Sao Martinho, Dume
+9,Maria Rosario,Rua Santa Margarida, Sao Vicente
+10,Joana Pinto,Rua da Senra, Lamacaes

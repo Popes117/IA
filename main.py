@@ -10,7 +10,7 @@ from menu import *
 """ Zé: Corrigir os algoritmos(Greedy) e testar os outros(BFS, DFS, A*)
         Testar a decisao de transporte
 
-    Marta: 
+    Marta: Implementar serviços (entregas com varias encomendas)
 
 """ 
 
@@ -88,6 +88,7 @@ def main():
     #Leitura dos ficheiros .txt com os estafetas e clientes
     carregarEstafetas('./estafetas.txt')
     carregarClientes('./clientes.txt', lista_ruas)
+    carregarEstafetas('./encomendas.txt')
 
 
     #Interface
@@ -194,18 +195,16 @@ def main():
                 print(f"Transporte Escolhido: {trans}")
 
                 aval = 5
+                estafeta_escolhido = Estafeta.listaEstafeta[estafeta-1]
                 if tempoGasto <= tempoLimite:
                     print(f"Tempo de entrega: {tempoGasto}")
                     print("Avaliação dada: 5")
+                    estafeta_escolhido.updateAvaliacao(aval)
                     pass
                 else:
                     percentAtraso = (tempoGasto - tempoLimite)/tempoLimite
-                    print(percentAtraso)
                     aval = avalia(1-percentAtraso)
-                    print(aval)
-                    estafeta_escolhido = Estafeta.listaEstafeta[estafeta-1]
-                    classif = estafeta_escolhido.updateAvaliacao(aval)
-                    print(classif)
+                    estafeta_escolhido.updateAvaliacao(aval)
 
                 
 
@@ -217,7 +216,10 @@ def main():
                       
         #Imprimir Ruas
         if userInput == 5: 
-            print(g.imprime_aresta()) #imprime arestas - trocar!
+            #print(g.imprime_aresta()) #imprime arestas - trocar!
+            print(rua0.getRua())
+            for rua in lista_ruas:
+                print(rua.getRua())
 
         #Desenhar Grafo
         if userInput == 6:
@@ -238,6 +240,9 @@ def main():
 
         else:
             print("Input inválido.\n")
+
+
+
 
 
 if __name__ == "__main__":
