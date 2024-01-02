@@ -283,6 +283,7 @@ def main():
                         print(f"Distancia Percorrida: {custo}")
                         print(f"Nodos Visitados: {visitados}")
                         print(f"Transporte Escolhido: {trans}")
+                        print(f"Tempo de Entrega: {tempoGasto}"
 
                         preco = preço(peso, volume, trans)
                         print(f"Preço da Encomenda:{preço(peso, volume, trans): .2f}")
