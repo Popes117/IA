@@ -232,75 +232,79 @@ def main():
             #Informações da Encomenda
             encomendaIdC = int(input("Id Cliente: "))
             peso = float(input("Peso da Encomenda: "))
-            volume = float(input("Volume da encomenda(em centímetros cúbicos): "))
-            tempoLimite = int(input("Hora limite de entrega(minutos): "))
-            dataEntrega = input("Data de Entrega (DD/MM/AAAA): ")
+             if peso > 50:
+                print("Peso não suportado")
+            else:
+                volume = float(input("Volume da encomenda(em centímetros cúbicos): "))
+                tempoLimite = int(input("Hora limite de entrega(minutos): "))
+                dataEntrega = input("Data de Entrega (DD/MM/AAAA): ")
 
             #Adicionar Encomenda as encomendas já existentes
-            rua = None
-            for cliente in Cliente.listaClientes:
-                if cliente.getId() == encomendaIdC:
-                    rua = cliente.getRua()
-                    idEncomenda = Encomenda.adicionarEncomenda(encomendaIdC,peso,volume,tempoLimite,rua,dataEntrega)
-                    encomendasAgrupadas = agruparEncomendas()
-                    break
+                rua = None
+                for cliente in Cliente.listaClientes:
+                    if cliente.getId() == encomendaIdC:
+                        rua = cliente.getRua()
+                        idEncomenda = Encomenda.adicionarEncomenda(encomendaIdC,peso,volume,tempoLimite,rua,dataEntrega)
+                        encomendasAgrupadas = agruparEncomendas()
+                        break
             
 
 #Permite visualizar um plano inicial do percurso da sua encomenda
-            visualizar = input("Visualizar o seu percurso inicial apenas para esta encomenda? (y/n): ")
-            if visualizar == "y":
+                visualizar = input("Visualizar o seu percurso inicial apenas para esta encomenda? (y/n): ")
+                if visualizar == "y":
                 
-                m.printAlgoritmos()
-                algoritmo = int(input("Escolha o algoritmo que deseja utilizar: "))
-                for estafeta in Estafeta.listaEstafeta:
-                    print(str(estafeta))
-                estafeta = int(input("Escolha Estafeta: "))
+                    m.printAlgoritmos()
+                    algoritmo = int(input("Escolha o algoritmo que deseja utilizar: "))
+                    for estafeta in Estafeta.listaEstafeta:
+                        print(str(estafeta))
+                    estafeta = int(input("Escolha Estafeta: "))
 
                 #Procura com algoritmo pedido
-                (path, custo, visitados) = (None,None,None)
-                if algoritmo == 1:
-                    path, custo, visitados = g.procura_aStar(rua0,rua)
-                elif algoritmo == 2:
-                    (path, custo, visitados) = g.procura_greedy(rua0,rua)
-                elif algoritmo == 3:
-                    (path, custo, visitados) = g.procura_BFS(rua0,rua)
-                elif algoritmo == 4:
-                    (path, custo, visitados) = g.procura_DFS(rua0,rua)
-                elif algoritmo == 5:
-                    (path, custo, visitados) = g.uniform_cost_search(rua0,rua)
-                elif algoritmo == 6:
-                    (path, custo, visitados) = g.melhorCircuito(rua0,rua)
-                else:
-                    print("Input inválido")
-
-                if path != None:
-                    estafetaEsc = Estafeta.listaEstafeta[estafeta-1]
-                    trans,tempoGasto = estafetaEsc.chooseTransport(peso,custo,tempoLimite)
-                    print(f"Caminho escolhido: {path}")
-                    print(f"Distancia Percorrida: {custo}")
-                    print(f"Nodos Visitados: {visitados}")
-                    print(f"Transporte Escolhido: {trans}")
-
-                    preco = preço(peso, volume, trans)
-                    print(f"Preço da Encomenda:{preço(peso, volume, trans): .2f}")
-
-                    aval = 5
-                    estafeta_escolhido = Estafeta.listaEstafeta[estafeta-1]
-                    if tempoGasto <= tempoLimite:
-                        print(f"Tempo de entrega: {tempoGasto}")
-                        print("Avaliação dada: 5")
-                        estafeta_escolhido.updateAvaliacao(aval)
-                        pass
+                    (path, custo, visitados) = (None,None,None)
+                    if algoritmo == 1:
+                        path, custo, visitados = g.procura_aStar(rua0,rua)
+                    elif algoritmo == 2:
+                        (path, custo, visitados) = g.procura_greedy(rua0,rua)
+                    elif algoritmo == 3:
+                        (path, custo, visitados) = g.procura_BFS(rua0,rua)
+                    elif algoritmo == 4:
+                        (path, custo, visitados) = g.procura_DFS(rua0,rua)
+                    elif algoritmo == 5:
+                        (path, custo, visitados) = g.uniform_cost_search(rua0,rua)
+                    elif algoritmo == 6:
+                        (path, custo, visitados) = g.melhorCircuito(rua0,rua)
                     else:
-                        percentAtraso = (tempoGasto - tempoLimite)/tempoLimite
-                        aval = avalia(1-percentAtraso)
-                        estafeta_escolhido.updateAvaliacao(aval)
-                else: 
-                    print("Caminho nao encontrado.")
+                        print("Input inválido")
 
-                print("\nID da Nova Encomenda: ", idEncomenda, "\n")
-            else:
-                print("\nID da Nova Encomenda: ", idEncomenda, "\n")
+                    if path != None:
+                        estafetaEsc = Estafeta.listaEstafeta[estafeta-1]
+                        trans,tempoGasto = estafetaEsc.chooseTransport(peso,custo,tempoLimite)
+                        print(f"Caminho escolhido: {path}")
+                        print(f"Distancia Percorrida: {custo}")
+                        print(f"Nodos Visitados: {visitados}")
+                        print(f"Transporte Escolhido: {trans}")
+
+                        preco = preço(peso, volume, trans)
+                        print(f"Preço da Encomenda:{preço(peso, volume, trans): .2f}")
+
+                        aval = 5
+                        estafeta_escolhido = Estafeta.listaEstafeta[estafeta-1]
+                        if tempoGasto <= tempoLimite:
+                            print(f"Tempo de entrega: {tempoGasto}")
+                            print("Avaliação dada: 5")
+                            estafeta_escolhido.updateAvaliacao(aval)
+                            pass
+                        else:
+                            percentAtraso = (tempoGasto - tempoLimite)/tempoLimite
+                            aval = avalia(1-percentAtraso)
+                            estafeta_escolhido.updateAvaliacao(aval)
+                    else: 
+                        print("Caminho nao encontrado.")
+
+                    print("\nID da Nova Encomenda: ", idEncomenda, "\n")
+                else:
+                    print("\nID da Nova Encomenda: ", idEncomenda, "\n")
+
 
 
  
