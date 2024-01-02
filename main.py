@@ -8,12 +8,6 @@ from Heu import Heu
 from menu import *
 import random
 
-""" Zé: Corrigir os algoritmos(Greedy) e testar os outros(BFS, DFS, A*)
-        Testar a decisao de transporte
-
-    Marta: Implementar serviços (entregas com varias encomendas)
-
-""" 
 
 def preço(peso, volume, transporte):
         if transporte == "Bicicleta":
@@ -113,7 +107,7 @@ def main():
 
     #Interface
     m = Menu()
-    print("\n******** BEM VINDO AO HEALTH PLANET ********\n")
+    print("\n******** BEM VINDO AO HEALTH PLANET ********")
 
     userInput = -1
     while userInput != 0:
@@ -154,7 +148,7 @@ def main():
 
 
         #Opcoes Estafeta
-        if userInput == 2:
+        elif userInput == 2:
             opcao2 = -1
             while opcao2 != 0:
                 m.menu_estafetas()
@@ -171,8 +165,8 @@ def main():
                     for estafeta in Estafeta.listaEstafeta:
                         print(str(estafeta))
 
-#a ser retirado daqui
-        if userInput == 3:        
+#!a ser retirado daqui
+        elif userInput == 9:        
             encomendaIdC = int(input("Id Cliente: "))
             peso = float(input("Peso da Encomenda: "))
             volume = float(input("Volume da encomenda(em centímetros cúbicos): "))
@@ -233,7 +227,7 @@ def main():
                 print("Caminho nao encontrado.")
                 
 #Registar Nova Encomenda
-        if userInput == 4:
+        elif userInput == 3:
             print("\n****** Nova Encomenda ******")
             #Informações da Encomenda
             encomendaIdC = int(input("Id Cliente: "))
@@ -267,12 +261,14 @@ def main():
                 if algoritmo == 1:
                     path, custo, visitados = g.procura_aStar(rua0,rua)
                 elif algoritmo == 2:
-                    (path, custo, visitados) = g.greedy(rua0,rua)
+                    (path, custo, visitados) = g.procura_greedy(rua0,rua)
                 elif algoritmo == 3:
                     (path, custo, visitados) = g.procura_BFS(rua0,rua)
                 elif algoritmo == 4:
                     (path, custo, visitados) = g.procura_DFS(rua0,rua)
                 elif algoritmo == 5:
+                    (path, custo, visitados) = g.uniform_cost_search(rua0,rua)
+                elif algoritmo == 6:
                     (path, custo, visitados) = g.melhorCircuito(rua0,rua)
                 else:
                     print("Input inválido")
@@ -286,7 +282,7 @@ def main():
                     print(f"Transporte Escolhido: {trans}")
 
                     preco = preço(peso, volume, trans)
-                    print("Preço da Encomenda: ", preco)
+                    print(f"Preço da Encomenda:{preço(peso, volume, trans): .2f}")
 
                     aval = 5
                     estafeta_escolhido = Estafeta.listaEstafeta[estafeta-1]
@@ -305,12 +301,11 @@ def main():
                 print("\nID da Nova Encomenda: ", idEncomenda, "\n")
             else:
                 print("\nID da Nova Encomenda: ", idEncomenda, "\n")
-            
 
 
  
         #Visualizar Percursos - permite ver o percurso de uma determinada encomenda #!tirar grande parte de prints!
-        if userInput == 8:
+        elif userInput == 4:
             encomendaId = int(input("Insira o id da encomenda: ")) 
             if 1 <= encomendaId <= Encomenda.ultimo_id:
 
@@ -324,6 +319,7 @@ def main():
                         pesoServico = grupo['peso']
                         break 
 
+                
                 flag = 0
                 #Se a lista obtida tiver apenas 1 unico elemento, irá usar os algoritmos de procura simples
                 if len(listaServico) == 1:
@@ -351,13 +347,15 @@ def main():
                     if algoritmo == 1: 
                         path, custo, visitados = g.procura_aStar(rua0,caminho)
                     elif algoritmo == 2:
-                        (path, custo, visitados) = g.greedy(rua0,caminho)
+                        (path, custo, visitados) = g.procura_greedy(rua0,caminho)
                     elif algoritmo == 3:
                         (path, custo, visitados) = g.procura_BFS(rua0,caminho)
                     elif algoritmo == 4:
                         (path, custo, visitados) = g.procura_DFS(rua0,caminho)
                     elif algoritmo == 5:
-                        (path, custo, visitados) = g.melhorCircuito(rua0,caminho)
+                        (path, custo, visitados) = g.uniform_cost_search(rua0,rua)
+                    elif algoritmo == 6:
+                        (path, custo, visitados) = g.melhorCircuito(rua0,rua)
                     else:
                         print("Input inválido")
 
@@ -366,7 +364,7 @@ def main():
                     if algoritmo == 1: 
                         path, custo, visitados = g.procura_aStar_Varias(rua0,caminho)
                     elif algoritmo == 2:
-                        (path, custo, visitados) = g.greedy_Varias(rua0,caminho)
+                        (path, custo, visitados) = g.procura_greedy_Varias(rua0,caminho)
                     elif algoritmo == 3:
                         (path, custo, visitados) = g.procura_BFS_Varias(rua0,caminho)
                     elif algoritmo == 4:
@@ -381,12 +379,12 @@ def main():
                 if path != None:
                         trans,tempoGasto = estafeta_escolhido.chooseTransport(pesoServico,custo,tempoLimite)
                         print(f"Caminho escolhido: {path}")
-                        print(f"Distancia Percorrida: {custo}")
+                        print(f"Distancia Percorrida:{custo: .2f}")
                         print(f"Nodos Visitados: {visitados}")
                         print(f"Transporte Escolhido: {trans}")
-                    
-                        preco = preço(peso, volume, trans)
-                        print("Preço da Encomenda: ", preco)
+                        
+                        peso = encProcura.getPeso()
+                        print(f"Preço da Encomenda:{preço(peso, volume, trans): .2f}")
 
                         #Avalia o Estafeta
                         aval = 5
@@ -404,28 +402,30 @@ def main():
                 print("Encomenda não existe!")
 
         #Imprimir Ruas
-        if userInput == 5: 
-            #print(g.imprime_aresta()) #imprime arestas - trocar!
+        elif userInput == 5: 
+            print("**** Ruas ****")
             print(rua0.getRua())
             for rua in lista_ruas:
                 print(rua.getRua())
 
+        #Ver Caminhos
+        elif userInput == 6:
+            print(g.imprime_aresta())
+
         #Desenhar Grafo
-        if userInput == 6:
+        elif userInput == 7:
+            print("A gerar grafo...")
             g.desenha()
             
         #Guardar alteracões
-        if userInput == 7:
+        elif userInput == 8:
             guardarEstafetas('./estafetas.txt')
             guardarClientes('./clientes.txt')
             guardarEncomendas('./encomendas.txt')
             print("\nAlteracões Guardadas!\n")
-
-
-        #acrescentar aqui cenas...
     
-                
-        if userInput == 0: #Sair
+         #Sair
+        elif userInput == 0:
             print("\nA sair...")
 
         else:

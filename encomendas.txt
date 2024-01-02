@@ -7,4 +7,4 @@
 7,5,1.0,3.0,4,Rua da Igreja, Nogueira,29/12/2023
 8,4,9.0,20.0,6,Avenida Dom Joao II, Nogueiro,29/12/2023
 9,9,2.0,9.0,3,Rua Santa Margarida, Sao Vicente,05/12/2023
-10,6,5.0,23.0,7,Rua Santa Margarida, Sao Vicente,04/12/2023
+10,6,5.0,23.0,50,Rua Santa Margarida, Sao Vicente,04/12/2023

@@ -2,15 +2,16 @@ from rua import *
 
 class Menu:
     def printMenu(self):
-        print("[1] Opções Cliente")
+        print("\n[1] Opções Cliente")
         print("[2] Opções Estafeta")
-        print("[3] Encomendar")
+        #print("[3] Encomendar")
         #print("[4] Repetir Encomenda")
-        print("[4] Registar Nova Encomenda")
-        print("[8] Visualizar Percursos")
+        print("[3] Registar Nova Encomenda")
+        print("[4] Visualizar Percursos Das Encomendas")
         print("[5] Ver Ruas")
-        print("[6] Desenhar Mapa")
-        print("[7] Guardar Alterações (caso tenha realizado novos registos)")
+        print("[6] Ver Caminhos")
+        print("[7] Desenhar Mapa")
+        print("[8] Guardar Alterações (caso tenha realizado novos registos)")
         print("[0] Sair")
 
 
@@ -32,12 +33,6 @@ class Menu:
         print("[2] Ver Lista Estafetas")
         print("[0] Voltar ao menu principal")
 
-
-    def menu_encomendas(self):
-        print("\n******** Encomendar ********")
-        print("[1] Registar Nova Encomenda") #??
-        print("[2] Gerar Circuito de Entrega") #meter aqui os varios tipos de algoritmos
-        print("[3] Realizar Encomendas") #recebe uma ou varias encomendas
 
     def printAlgoritmos(self):
         print("[1] A*")

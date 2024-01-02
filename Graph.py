@@ -115,9 +115,6 @@ class Grafo:
         if start == end:
             # calcular o custo do caminho funçao calcula custo.
             custoT = self.calcula_custo(path)
-            print ("A procura DFS entre a posição inicial e final é:",path,"com o custo",custoT)
-            print(" ")
-            print ("Sendo que o caminho percorrido foi:", visited)
 
             return (path, custoT)
         for (adjacente, peso) in self.m_graph[start]:
@@ -167,9 +164,6 @@ class Grafo:
             path.reverse()
             # funçao calcula custo caminho
             custo = self.calcula_custo(path)
-            print ("A procura BFS entre a posição inicial e final é:",path,"com custo",custo)
-            print(" ")
-            print ("Sendo que o caminho percorrido foi:", visited)
         return (path, custo, visited)
 
 
@@ -275,6 +269,7 @@ class Grafo:
                 reconst_path.append(start)
 
                 reconst_path.reverse()
+                open_list.add(closed_list)
 
                 #print('Path found: {}'.format(reconst_path))
                 return (reconst_path, self.calcula_custo(reconst_path), open_list)
@@ -308,7 +303,7 @@ class Grafo:
         print('Path does not exist!')
         return None
 
-    ###################################3
+    ####################################
     # devolve heuristicas do nodo
     ####################################
 
@@ -327,7 +322,7 @@ class Grafo:
     # Precisa ser alterada
     ##########################################
 
-    def greedy(self, start, end):
+    def procura_greedy(self, start, end):
         # open_list é uma lista de nodos visitados, mas com vizinhos
         # que ainda não foram todos visitados, começa com o  start
         # closed_list é uma lista de nodos visitados
@@ -345,7 +340,7 @@ class Grafo:
 
             # encontraf nodo com a menor heuristica
             for v in open_list:
-                if n == None or self.m_h.getHeu(v,end) < self.m_h.getHeu(n,end):
+                if n == None or self.m_h.getHeu(v.getNome(),end.getNome()) < self.m_h.getHeu(n.getNome(),end.getNome()):
                     n = v
 
             if n == None:
@@ -365,8 +360,9 @@ class Grafo:
                 reconst_path.append(start)
 
                 reconst_path.reverse()
+                open_list.add(closed_list)
 
-                return (reconst_path, self.calcula_custo(reconst_path), open_list.add(closed_list))
+                return (reconst_path, self.calcula_custo(reconst_path), open_list)
 
             # para todos os vizinhos  do nodo corrente
             for (m, weight) in self.getNeighbours(n):
@@ -408,35 +404,49 @@ class Grafo:
                     frontier.append((new_cost, neighbor, new_path))
         return None  # No path found
     
+
+    ########################################################
+    # Calcula melhor circuito a nível de custo (distancia)
+    ########################################################
+    
+
     def melhorCircuito(self,start,end):
         path1, custo1, visitados1 = self.procura_aStar(start,end)
-        path2, custo2, visitados2 = self.greedy(start,end)
+        path2, custo2, visitados2 = self.procura_greedy(start,end)
         path3, custo3, visitados3 = self.procura_BFS(start,end)
         path4, custo4, visitados4 = self.procura_DFS(start,end)
-        #falta o outro algoritmo
+        path5, custo5, visitados5 = self.uniform_cost_search(start,end)
 
-        maior_custo = min([custo1, custo2, custo3, custo4])
-        if maior_custo == custo1:
-            return path1, maior_custo, visitados1
-        elif maior_custo == custo2:
-            return path2, maior_custo, visitados2
-        elif maior_custo == custo3:
-            return path3, maior_custo, visitados3
+        menor_custo = min([custo1, custo2, custo3, custo4,custo5])
+        if menor_custo == custo1:
+            return path1, menor_custo, visitados1
+        elif menor_custo == custo2:
+            return path2, menor_custo, visitados2
+        elif menor_custo == custo3:
+            return path3, menor_custo, visitados3
+        elif menor_custo == custo4:
+            return path4, menor_custo, visitados4
         else:
-            return path4, maior_custo, visitados4
+            return path5, menor_custo, visitados5
         
-#incompleto
-    def procura_BFS_Varias(self, start, caminho):
-        percurso = []
+
+
+    ######################################
+    #  Procura com várias encomendas
+    ######################################
+        
+    
+#!deve funcionar mas está a dar erros
+    def procura_DFS_Varias(self,start,caminho):
+        percurso = [start]
         custo_total = 0
         ponto_atual = start
         ruas_a_procurar = caminho
         visitados = set()
-
+        
         while ruas_a_procurar:
             rua_atual = ruas_a_procurar[0]  # Rua atual é o primeiro elemento da lista
-            (path, custo, visited) = self.procura_BFS(ponto_atual, rua_atual)
-
+            (path, custo, visited) = self.procura_DFS(ponto_atual, rua_atual)
             percurso.extend(path[1:])  # Adiciona todos os elementos do caminho, exceto o primeiro (repetido)
             custo_total += custo
 
@@ -447,76 +457,90 @@ class Grafo:
             ruas_a_procurar.remove(rua_atual)
 
             # Atualiza o conjunto de ruas a procurar, excluindo as já encontradas no caminho atual
-            #ruas_a_procurar -= set(path[1:])
+            for rua in ruas_a_procurar:
+                if rua in path: 
+                    ruas_a_procurar.remove(rua)
 
-        print(percurso, custo_total, visited)
+        return(percurso, custo_total, visited)
+    
 
 
-    """- mal implementado mas a ide
+
     def procura_BFS_Varias(self, start, caminho):
-        restantes_ruas = caminho
-        percurso = []
-        c = 0
-        for rua in caminho:
-            (path, custo, visited) = self.procura_BFS(start, rua)
-            percurso.append(path)
-            c += custo
-            restantes_ruas.remove(rua)
-            for ruas in restantes_ruas:
-                if ruas in path:
-                    caminho.remove(ruas)
-                    restantes_ruas.remove(ruas)
-            start = rua
-        print(percurso, custo,visited)
-    """
+        percurso = [start]
+        custo_total = 0
+        ponto_atual = start
+        ruas_a_procurar = caminho
+        visitados = set()
+        
+        while ruas_a_procurar:
+            rua_atual = ruas_a_procurar[0]
+            (path, custo, visited) = self.procura_BFS(ponto_atual, rua_atual)
+            percurso.extend(path[1:])
+            custo_total += custo
 
-""" - nao funcimina
-    def procura_BFS_Varias(self, start: Rua, caminho):
-    # definir nodos visitados para evitar ciclos
-    visited = set()
-    fila = Queue()
+            ponto_atual = rua_atual
+            visitados.update(visited)
 
-    # adicionar o nodo inicial à fila e aos visitados
-    fila.put(start)
-    visited.add(start)
+            ruas_a_procurar.remove(rua_atual)
 
-    # garantir que o start node nao tem pais...
-    parent = {start: None}
+            for rua in ruas_a_procurar:
+                if rua in path: 
+                    ruas_a_procurar.remove(rua)
 
-    # conjunto de ruas a serem encontradas
-    ruas_a_encontrar = set(caminho)
+        return(percurso, custo_total, visited)
 
-    while not fila.empty() and ruas_a_encontrar:
-        nodo_atual = fila.get()
 
-        if nodo_atual in ruas_a_encontrar:
-            ruas_a_encontrar.remove(nodo_atual)
 
-        for (adjacente, peso) in self.m_graph[nodo_atual]:
-            if adjacente not in visited:
-                fila.put(adjacente)
-                parent[adjacente] = nodo_atual
-                visited.add(adjacente)
+    def procura_aStar_Varias(self,start,caminho):
+        percurso = [start]
+        custo_total = 0
+        ponto_atual = start
+        ruas_a_procurar = caminho
+        visitados = set()
+        
+        while ruas_a_procurar:
+            rua_atual = ruas_a_procurar[0]
+            (path, custo, visited) = self.procura_aStar(ponto_atual, rua_atual)
+            percurso.extend(path[1:])
+            custo_total += custo
 
-    # Reconstruir o caminho
-    path = []
-    if not ruas_a_encontrar:
-        end = None
-        for rua in caminho:
-            if rua in parent:
-                end = rua
-                break
+            ponto_atual = rua_atual
+            visitados.update(visited)
+            ruas_a_procurar.remove(rua_atual)
 
-        path.append(end)
-        while parent[end] is not None:
-            path.append(parent[end])
-            end = parent[end]
-        path.reverse()
+            for rua in ruas_a_procurar:
+                if rua in path: 
+                    ruas_a_procurar.remove(rua)
+    
+        return(percurso, custo_total, visited)
+    
 
-    # funçao calcula custo caminho
-    custo = self.calcula_custo(path)
-    return (path, custo, visited)
-"""
+
+
+    def procura_greedy_Varias(self,start,caminho):
+        percurso = [start]
+        custo_total = 0
+        ponto_atual = start
+        ruas_a_procurar = caminho
+        visitados = set()
+        
+        while ruas_a_procurar:
+            rua_atual = ruas_a_procurar[0]
+            (path, custo, visited) = self.procura_greedy(ponto_atual, rua_atual)
+            percurso.extend(path[1:])
+            custo_total += custo
+
+            ponto_atual = rua_atual
+            visitados.update(visited)
+            ruas_a_procurar.remove(rua_atual)
+
+            for rua in ruas_a_procurar:
+                if rua in path: 
+                    ruas_a_procurar.remove(rua)
+    
+        return(percurso, custo_total, visited)
+    
 
 
 def bubble_sort(arr):
