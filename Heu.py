@@ -6,19 +6,19 @@ class Heu:
     def fillHeuristicas(self):
         heuristicasCentral= {
             "Central":0,
-            "Rua da Confeiteira":2,
-            "Rua de Redondo":2.4,
+            "Rua da Confeiteira":4.0,
+            "Rua de Redondo":4.1,
             "Rua de Sao Martinho":1.9,
-            "Rua 5 de Outubro":1.2,
-            "Rua da Universidade":3.3,
-            "Rua Santa Margarida":2.3,
-            "Rua de Sao Jose":2.7,
-            "Rua do Raio":2.9,
-            "Avenida Dom Joao II":3.6, 
-            "Rua do Fujacal":2.7,
-            "Rua Joaozinho Azeredo":2.6, 
-            "Rua da Igreja":4.5, 
-            "Rua da Senra":4.1
+            "Rua 5 de Outubro":2.7,
+            "Rua da Universidade":3.4,
+            "Rua Santa Margarida":2.6,
+            "Rua de Sao Jose":1.9,
+            "Rua do Raio":1.6,
+            "Avenida Dom Joao II":2.0, 
+            "Rua do Fujacal":1.1,
+            "Rua Joaozinho Azeredo":1.2, 
+            "Rua da Igreja":0.9, 
+            "Rua da Senra":0.2
         }
 
         heuristicasRuadaConfeiteira= {

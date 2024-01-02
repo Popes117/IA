@@ -382,9 +382,32 @@ class Grafo:
             closed_list.add(n)
 
         print('Path does not exist!')
-        return None
-    
+        
+    def uniform_cost_search(self,initial_node, goal_state):
+        frontier = list()
+        frontier.append((0, initial_node, [initial_node]))
 
+        explored = set()
+
+        while len(frontier) != 0:
+            bubble_sort(frontier)
+            custo, current_node, path = frontier.pop()
+
+            if current_node == goal_state:
+                print(custo)
+                return path,custo,explored
+
+            explored.add(current_node)
+
+            for neighbor, cost in self.getNeighbours(current_node):
+                if neighbor not in explored:
+                    new_cost = custo + cost
+                    new_path = list()
+                    new_path.extend(path)
+                    new_path.append(neighbor)
+                    frontier.append((new_cost, neighbor, new_path))
+        return None  # No path found
+    
     def melhorCircuito(self,start,end):
         path1, custo1, visitados1 = self.procura_aStar(start,end)
         path2, custo2, visitados2 = self.greedy(start,end)
@@ -494,3 +517,25 @@ class Grafo:
     custo = self.calcula_custo(path)
     return (path, custo, visited)
 """
+
+
+def bubble_sort(arr):
+        n = len(arr)
+     
+    # Traverse through all array elements
+        for i in range(n):
+            swapped = False
+ 
+        # Last i elements are already in place
+            for j in range(0, n-i-1):
+ 
+            # Traverse the array from 0 to n-i-1
+            # Swap if the element found is greater
+            # than the next element
+                if arr[j][0] < arr[j+1][0]:
+                    arr[j], arr[j+1] = arr[j+1], arr[j]
+                    swapped = True
+            if (swapped == False):
+                break
+
+

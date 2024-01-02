@@ -53,15 +53,9 @@ def main():
 
 
     g = Grafo(heuristicas)
-    g.add_edge(rua0, rua3, 3.7)
-    g.add_edge(rua0, rua4, 3.3)
-    g.add_edge(rua0, rua5, 2.2)
-    g.add_edge(rua0, rua6, 0.5)
-    g.add_edge(rua0, rua8, 0.3)
-    g.add_edge(rua0, rua9, 2.9)
     g.add_edge(rua0, rua10, 2.3)
-    g.add_edge(rua0, rua11, 1.8)
-    g.add_edge(rua0, rua13, 3.1)
+    g.add_edge(rua0, rua12, 1.5)
+    g.add_edge(rua0, rua13, 0.4)
     g.add_edge(rua1, rua3, 2.8) 
     g.add_edge(rua1, rua2, 2.8) 
     g.add_edge(rua1, rua4, 1.7) 
@@ -210,6 +204,8 @@ def main():
                 (path, custo, visitados) = g.procura_BFS(rua,morada)
             elif algoritmo == 4:
                 (path, custo, visitados) = g.procura_DFS(rua,morada)
+            elif algoritmo == 5:
+                (path, custo, visitados) = g.uniform_cost_search(rua,morada)
             else:
                 print("Input inválido")
             if path != None:
@@ -231,7 +227,7 @@ def main():
                     aval = avalia(1-percentAtraso)
                     estafeta_escolhido.updateAvaliacao(aval)
 
-                
+                print(f"Custo: {preco(peso,volume,trans): .2f}")
 
             else: 
                 print("Caminho nao encontrado.")

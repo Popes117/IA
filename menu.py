@@ -44,8 +44,8 @@ class Menu:
         print("[2] Greedy")
         print("[3] BFS")
         print("[4] DFS")
-        print("[5] Melhor Circuito")
-        print("[0] Terminar")
+        print("[5] Cost Uniform Search")
+        print("[6] Melhor Circuito")
 
     def printTransporte(self, trans):
         if trans == 1:
