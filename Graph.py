@@ -269,7 +269,7 @@ class Grafo:
                 reconst_path.append(start)
 
                 reconst_path.reverse()
-                open_list.add(closed_list)
+                open_list.update(closed_list)
 
                 #print('Path found: {}'.format(reconst_path))
                 return (reconst_path, self.calcula_custo(reconst_path), open_list)
@@ -360,7 +360,7 @@ class Grafo:
                 reconst_path.append(start)
 
                 reconst_path.reverse()
-                open_list.add(closed_list)
+                open_list.update(closed_list)
 
                 return (reconst_path, self.calcula_custo(reconst_path), open_list)
 
