@@ -383,3 +383,114 @@ class Grafo:
 
         print('Path does not exist!')
         return None
+    
+
+    def melhorCircuito(self,start,end):
+        path1, custo1, visitados1 = self.procura_aStar(start,end)
+        path2, custo2, visitados2 = self.greedy(start,end)
+        path3, custo3, visitados3 = self.procura_BFS(start,end)
+        path4, custo4, visitados4 = self.procura_DFS(start,end)
+        #falta o outro algoritmo
+
+        maior_custo = min([custo1, custo2, custo3, custo4])
+        if maior_custo == custo1:
+            return path1, maior_custo, visitados1
+        elif maior_custo == custo2:
+            return path2, maior_custo, visitados2
+        elif maior_custo == custo3:
+            return path3, maior_custo, visitados3
+        else:
+            return path4, maior_custo, visitados4
+        
+#incompleto
+    def procura_BFS_Varias(self, start, caminho):
+        percurso = []
+        custo_total = 0
+        ponto_atual = start
+        ruas_a_procurar = caminho
+        visitados = set()
+
+        while ruas_a_procurar:
+            rua_atual = ruas_a_procurar[0]  # Rua atual é o primeiro elemento da lista
+            (path, custo, visited) = self.procura_BFS(ponto_atual, rua_atual)
+
+            percurso.extend(path[1:])  # Adiciona todos os elementos do caminho, exceto o primeiro (repetido)
+            custo_total += custo
+
+            ponto_atual = rua_atual
+            visitados.update(visited)
+
+            # Exclui a rua atual do conjunto de ruas a procurar
+            ruas_a_procurar.remove(rua_atual)
+
+            # Atualiza o conjunto de ruas a procurar, excluindo as já encontradas no caminho atual
+            #ruas_a_procurar -= set(path[1:])
+
+        print(percurso, custo_total, visited)
+
+
+    """- mal implementado mas a ide
+    def procura_BFS_Varias(self, start, caminho):
+        restantes_ruas = caminho
+        percurso = []
+        c = 0
+        for rua in caminho:
+            (path, custo, visited) = self.procura_BFS(start, rua)
+            percurso.append(path)
+            c += custo
+            restantes_ruas.remove(rua)
+            for ruas in restantes_ruas:
+                if ruas in path:
+                    caminho.remove(ruas)
+                    restantes_ruas.remove(ruas)
+            start = rua
+        print(percurso, custo,visited)
+    """
+
+""" - nao funcimina
+    def procura_BFS_Varias(self, start: Rua, caminho):
+    # definir nodos visitados para evitar ciclos
+    visited = set()
+    fila = Queue()
+
+    # adicionar o nodo inicial à fila e aos visitados
+    fila.put(start)
+    visited.add(start)
+
+    # garantir que o start node nao tem pais...
+    parent = {start: None}
+
+    # conjunto de ruas a serem encontradas
+    ruas_a_encontrar = set(caminho)
+
+    while not fila.empty() and ruas_a_encontrar:
+        nodo_atual = fila.get()
+
+        if nodo_atual in ruas_a_encontrar:
+            ruas_a_encontrar.remove(nodo_atual)
+
+        for (adjacente, peso) in self.m_graph[nodo_atual]:
+            if adjacente not in visited:
+                fila.put(adjacente)
+                parent[adjacente] = nodo_atual
+                visited.add(adjacente)
+
+    # Reconstruir o caminho
+    path = []
+    if not ruas_a_encontrar:
+        end = None
+        for rua in caminho:
+            if rua in parent:
+                end = rua
+                break
+
+        path.append(end)
+        while parent[end] is not None:
+            path.append(parent[end])
+            end = parent[end]
+        path.reverse()
+
+    # funçao calcula custo caminho
+    custo = self.calcula_custo(path)
+    return (path, custo, visited)
+"""

@@ -5,7 +5,9 @@ class Menu:
         print("[1] Opções Cliente")
         print("[2] Opções Estafeta")
         print("[3] Encomendar")
-        print("[4] Repetir Encomenda")
+        #print("[4] Repetir Encomenda")
+        print("[4] Registar Nova Encomenda")
+        print("[8] Visualizar Percursos")
         print("[5] Ver Ruas")
         print("[6] Desenhar Mapa")
         print("[7] Guardar Alterações (caso tenha realizado novos registos)")
@@ -39,9 +41,11 @@ class Menu:
 
     def printAlgoritmos(self):
         print("[1] A*")
-        print("[1] Greedy")
-        print("[1] BFS")
-        print("[1] DFS")
+        print("[2] Greedy")
+        print("[3] BFS")
+        print("[4] DFS")
+        print("[5] Melhor Circuito")
+        print("[0] Terminar")
 
     def printTransporte(self, trans):
         if trans == 1:
