@@ -39,9 +39,10 @@ class Menu:
 
     def printAlgoritmos(self):
         print("[1] A*")
-        print("[1] Greedy")
-        print("[1] BFS")
-        print("[1] DFS")
+        print("[2] Greedy")
+        print("[3] BFS")
+        print("[4] DFS")
+        print("[5] Cost Uniform Search")
 
     def printTransporte(self, trans):
         if trans == 1:
