@@ -74,6 +74,13 @@ def guardarEncomendas(nome_ficheiro):
             linha = f"{encomenda.getId()},{encomenda.getIDCliente()},{encomenda.getPeso()},{encomenda.getVolume()},{encomenda.getPrazo()},{encomenda.getMorada()},{encomenda.getData()}\n"
             ficheiro.write(linha)
 
+def preco(peso, volume, transporte):
+    if transporte == "Bicicleta":
+        return 1 + peso*volume/100
+    elif transporte == "Bicicleta":
+        return 3 + 2*peso*volume/100
+    else:
+        return 5 + 4*peso*volume/100
 
 """
 #as encomendas vão ser agrupadas por datas, se tiveram a mesma data são colocadas na mesma lista. caso não encontre
