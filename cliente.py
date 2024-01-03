@@ -44,22 +44,29 @@ def avalia(percentAtraso):
         return 1
 
 def carregarClientes(nome_ficheiro, ruas):
-    with open(nome_ficheiro, 'r') as ficheiro:
-        for linha in ficheiro:
-            campo = linha.strip().split(',')
-            id_cliente = int(campo[0])
-            nome_cliente = campo[1]
-            nome_morada = campo[2]
-            
-            #Garante que as ruas inseridas existem nas ruas conhecidas
-            rua_cliente = None
-            for rua in ruas:
-                if rua.getNome() == nome_morada:
-                    rua_cliente = rua
-                    break
-
-            if rua_cliente is not None:
-                Cliente(id_cliente, nome_cliente, rua_cliente)
+    try:
+        with open(nome_ficheiro, 'r') as ficheiro:
+            for linha in ficheiro:
+                campo = linha.strip().split(',')
+                id_cliente = int(campo[0])
+                nome_cliente = campo[1]
+                nome_morada = campo[2]
+                
+                #Garante que as ruas inseridas existem nas ruas conhecidas
+                rua_cliente = None
+                for rua in ruas:
+                    if rua.getNome() == nome_morada:
+                        rua_cliente = rua
+                        break
+                    
+                if rua_cliente is not None:
+                    Cliente(id_cliente, nome_cliente, rua_cliente)
+    except FileNotFoundError:
+        print(f"O arquivo {nome_ficheiro} não foi encontrado.")
+    except PermissionError:
+        print(f"Sem permissão para ler o arquivo {nome_ficheiro}.")
+    except Exception as e:
+        print(f"Erro ao ler o arquivo {nome_ficheiro}: {e}")
  
 
 

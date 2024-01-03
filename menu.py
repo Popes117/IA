@@ -4,8 +4,6 @@ class Menu:
     def printMenu(self):
         print("\n[1] Opções Cliente")
         print("[2] Opções Estafeta")
-        #print("[3] Encomendar")
-        #print("[4] Repetir Encomenda")
         print("[3] Registar Nova Encomenda")
         print("[4] Visualizar Percursos Das Encomendas")
         print("[5] Ver Ruas")

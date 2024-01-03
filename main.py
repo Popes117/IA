@@ -91,18 +91,6 @@ def main():
     #dicionario cuja chave são as suas datas. Para cada data terá listas de grupos. estes são separados por pesos.
     #por isso cada lista terá um tuplo com sua lista de encomendas e o peso total das encomendas nessa mesma lista
     encomendasAgrupadas = agruparEncomendas()
-
-    #!para tirar!!
-    """
-    for data, grupo_data in encomendasAgrupadas.items():
-        for grupo_atual in grupo_data:
-            print(f"Grupo - Data: {data}, Peso Total: {grupo_atual['peso']:.2f}")
-    
-        # Acesse a lista de encomendas
-            for encomenda in grupo_atual['encomendas']:
-                print(f"  Encomenda {encomenda}: {Encomenda.listaEncomendas[encomenda]}, Peso: {Encomenda.listaEncomendas[encomenda].peso:.2f}")
-            print(" ")
-    """
     
 
     #Interface
@@ -164,75 +152,14 @@ def main():
                     print("\n**** Estafetas ****")
                     for estafeta in Estafeta.listaEstafeta:
                         print(str(estafeta))
-
-#!a ser retirado daqui
-        elif userInput == 9:        
-            encomendaIdC = int(input("Id Cliente: "))
-            peso = float(input("Peso da Encomenda: "))
-            volume = float(input("Volume da encomenda(em centímetros cúbicos): "))
-            tempoLimite = int(input("Hora limite de entrega(minutos): "))
-            morada = rua0
-            m.printAlgoritmos()
-            algoritmo = int(input("Escolha o algoritmo que deseja utilizar: "))
-            for estafeta in Estafeta.listaEstafeta:
-                print(str(estafeta))
-            estafeta = int(input("Escolha Estafeta: "))
-            
-            rua = None
-            for cliente in Cliente.listaClientes:
-                if cliente.getId() == encomendaIdC:
-                    encomenda = Encomenda(idEncomenda,encomendaIdC,estafeta,peso,volume,tempoLimite,cliente.getRua())
-                    idEncomenda += 1
-                    listEncomendas.append(encomenda)
-                    rua = cliente.getRua()
-                    break
-            print(rua)
-
-
-            (path, custo, visitados) = (None,None,None)
-            if algoritmo == 1:
-                path, custo, visitados = g.procura_aStar(rua,morada)
-            elif algoritmo == 2:
-                (path, custo, visitados) = g.greedy(rua,morada)
-            elif algoritmo == 3:
-                (path, custo, visitados) = g.procura_BFS(rua,morada)
-            elif algoritmo == 4:
-                (path, custo, visitados) = g.procura_DFS(rua,morada)
-            elif algoritmo == 5:
-                (path, custo, visitados) = g.uniform_cost_search(rua,morada)
-            else:
-                print("Input inválido")
-            if path != None:
-                estafetaEsc = Estafeta.listaEstafeta[estafeta-1]
-                trans,tempoGasto = estafetaEsc.chooseTransport(peso,custo,tempoLimite)
-                print(f"Caminho escolhido: {path}")
-                print(f"Nodos Visitados: {visitados}")
-                print(f"Transporte Escolhido: {trans}")
-
-                aval = 5
-                estafeta_escolhido = Estafeta.listaEstafeta[estafeta-1]
-                if tempoGasto <= tempoLimite:
-                    print(f"Tempo de entrega: {tempoGasto}")
-                    print("Avaliação dada: 5")
-                    estafeta_escolhido.updateAvaliacao(aval)
-                    pass
-                else:
-                    percentAtraso = (tempoGasto - tempoLimite)/tempoLimite
-                    aval = avalia(1-percentAtraso)
-                    estafeta_escolhido.updateAvaliacao(aval)
-
-                print(f"Custo: {preco(peso,volume,trans): .2f}")
-
-            else: 
-                print("Caminho nao encontrado.")
                 
-#Registar Nova Encomenda
+        #Registar Nova Encomenda
         elif userInput == 3:
             print("\n****** Nova Encomenda ******")
             #Informações da Encomenda
             encomendaIdC = int(input("Id Cliente: "))
             peso = float(input("Peso da Encomenda: "))
-             if peso > 50:
+            if peso > 50:
                 print("Peso não suportado")
             else:
                 volume = float(input("Volume da encomenda(em centímetros cúbicos): "))
@@ -249,7 +176,7 @@ def main():
                         break
             
 
-#Permite visualizar um plano inicial do percurso da sua encomenda
+                #Permite visualizar um plano inicial do percurso da sua encomenda
                 visualizar = input("Visualizar o seu percurso inicial apenas para esta encomenda? (y/n): ")
                 if visualizar == "y":
                 
@@ -279,13 +206,12 @@ def main():
                     if path != None:
                         estafetaEsc = Estafeta.listaEstafeta[estafeta-1]
                         trans,tempoGasto = estafetaEsc.chooseTransport(peso,custo,tempoLimite)
-                        print(f"Caminho escolhido: {path}")
+                        print(f"\nCaminho escolhido: {path}")
                         print(f"Distancia Percorrida: {custo}")
                         print(f"Nodos Visitados: {visitados}")
                         print(f"Transporte Escolhido: {trans}")
-                        print(f"Tempo de Entrega: {tempoGasto}"
+                        print(f"Tempo de Entrega: {tempoGasto}")
 
-                        preco = preço(peso, volume, trans)
                         print(f"Preço da Encomenda:{preço(peso, volume, trans): .2f}")
 
                         aval = 5
@@ -309,7 +235,7 @@ def main():
 
 
  
-        #Visualizar Percursos - permite ver o percurso de uma determinada encomenda #!tirar grande parte de prints!
+        #Visualizar Percursos - permite ver o percurso de uma determinada encomenda
         elif userInput == 4:
             encomendaId = int(input("Insira o id da encomenda: ")) 
             if 1 <= encomendaId <= Encomenda.ultimo_id:
@@ -320,7 +246,6 @@ def main():
                 for grupo in listaEncomendas:
                     if encomendaId in grupo['encomendas']:
                         listaServico = grupo['encomendas']
-                        #print(f"Encontrado na lista de encomendas do grupo: {grupo}") #! pode tirar
                         pesoServico = grupo['peso']
                         break 
 
@@ -374,8 +299,8 @@ def main():
                         (path, custo, visitados) = g.procura_BFS_Varias(rua0,caminho)
                     elif algoritmo == 4:
                         (path, custo, visitados) = g.procura_DFS_Varias(rua0,caminho)
-                    #elif algoritmo == 5:
-                    #    melhor circuito (chamaruar todos e ver qual o melhor!!!)
+                    elif algoritmo == 5:
+                        (path, custo, visitados) = g.procura_Custo_uni_varias(rua0,caminho)
                     else:
                         print("Input inválido")
 
@@ -383,12 +308,13 @@ def main():
                 estafeta_escolhido = Estafeta.listaEstafeta[random.randint(0,Estafeta.ultimo_id - 1)]
                 if path != None:
                         trans,tempoGasto = estafeta_escolhido.chooseTransport(pesoServico,custo,tempoLimite)
-                        print(f"Caminho escolhido: {path}")
+                        print(f"\nCaminho escolhido: {path}")
                         print(f"Distancia Percorrida:{custo: .2f}")
                         print(f"Nodos Visitados: {visitados}")
                         print(f"Transporte Escolhido: {trans}")
                         
                         peso = encProcura.getPeso()
+                        volume = encProcura.getVolume()
                         print(f"Preço da Encomenda:{preço(peso, volume, trans): .2f}")
 
                         #Avalia o Estafeta

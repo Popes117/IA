@@ -445,11 +445,9 @@ class Grafo:
 
 
     ######################################
-    #  Procura com várias encomendas
+    #  Procuras com várias encomendas
     ######################################
-        
     
-#!deve funcionar mas está a dar erros
     def procura_DFS_Varias(self,start,caminho):
         percurso = [start]
         custo_total = 0
@@ -557,6 +555,36 @@ class Grafo:
     
         return(percurso, custo_total, visited)
     
+
+
+    def procura_Custo_uni_varias(self,start,caminho):
+        percurso = [start]
+        custo_total = 0
+        ponto_atual = start
+        ruas_a_procurar = caminho
+        visitados = set()
+        
+        while ruas_a_procurar:
+            rua_atual = ruas_a_procurar[0]  # Rua atual é o primeiro elemento da lista
+            if rua_atual == ponto_atual:
+                pass
+            else:
+                (path, custo, visited) = self.uniform_cost_search(ponto_atual, rua_atual)
+                percurso.extend(path[1:])  # Adiciona todos os elementos do caminho, exceto o primeiro (repetido)
+                custo_total += custo
+
+                ponto_atual = rua_atual
+                visitados.update(visited)
+
+            # Exclui a rua atual do conjunto de ruas a procurar
+            ruas_a_procurar.remove(rua_atual)
+
+            # Atualiza o conjunto de ruas a procurar, excluindo as já encontradas no caminho atual
+            for rua in ruas_a_procurar:
+                if rua in path: 
+                    ruas_a_procurar.remove(rua)
+
+        return(percurso, custo_total, visited)
 
 
 def bubble_sort(arr):

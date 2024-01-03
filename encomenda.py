@@ -9,7 +9,6 @@ class Encomenda:
     def __init__(self, id, id_cliente, peso, volume, prazo_limite, morada_entrega, data):
         self.id = id
         self.id_cliente = id_cliente
-        #self.id_estafeta = id_estafeta
         self.peso = peso
         self.volume = volume
         self.prazo_limite = prazo_limite
@@ -43,7 +42,7 @@ class Encomenda:
     def getMorada(self):
         return self.morada_entrega
 
-    def getData(self): #passei para isto para facilitar no registo dos clientes
+    def getData(self):
         return self.data
     
 

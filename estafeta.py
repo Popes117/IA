@@ -12,10 +12,6 @@ class Estafeta:
         self.nrEncomendas = nrEncomendas
         Estafeta.listaEstafeta.append(self)
         Estafeta.ultimo_id = id
-        
-
-    #def changeLocal(self, newLocal: str):
-    #    self.localizacao = newLocal
 
 
     def getId(self):
@@ -35,18 +31,6 @@ class Estafeta:
             return 0
         return round((self.somaAvaliacao / self.nrEncomendas),2)
     
-    """
-    por enquanto nao é necessario existir
-    #provavelmente será necessario acrescentar a mudança na lista!!!
-    def updateSomaAval(self, aval):
-        self.somaAvaliacao += aval
-
-    def updateNrEnc(self):
-        self.nrEncomendas += 1
-    """
-
-    #def move(self, newLocal: str):
-    #    self.localizacao = newLocal
 
     def __str__(self):
         return "("+ str(self.id) + ", " + self.nome + ", " + str(self.getAvaliacao()) + ")"
@@ -89,15 +73,21 @@ class Estafeta:
 
     
 def carregarEstafetas(nome_ficheiro):
-    with open(nome_ficheiro, 'r') as ficheiro:
-        for linha in ficheiro:
-            campo = linha.strip().split(',')
-            id_estafeta = int(campo[0])
-            nome_estafeta = campo[1]
-            soma_avaliacao = int(campo[2])
-            nr_encomendas = int(campo[3])
-            Estafeta(id_estafeta, nome_estafeta,soma_avaliacao,nr_encomendas)
-            #print(Estafeta.listaEstafeta)
+    try:
+        with open(nome_ficheiro, 'r') as ficheiro:
+            for linha in ficheiro:
+                campo = linha.strip().split(',')
+                id_estafeta = int(campo[0])
+                nome_estafeta = campo[1]
+                soma_avaliacao = int(campo[2])
+                nr_encomendas = int(campo[3])
+                Estafeta(id_estafeta, nome_estafeta,soma_avaliacao,nr_encomendas)
+    except FileNotFoundError:
+        print(f"O arquivo {nome_ficheiro} não foi encontrado.")
+    except PermissionError:
+        print(f"Sem permissão para ler o arquivo {nome_ficheiro}.")
+    except Exception as e:
+        print(f"Erro ao ler o arquivo {nome_ficheiro}: {e}")
 
 def guardarEstafetas(nome_ficheiro):
     with open(nome_ficheiro, 'w') as ficheiro:

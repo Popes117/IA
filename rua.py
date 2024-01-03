@@ -20,11 +20,9 @@ class Rua:
         return (", ".join([self.nome,self.freguesia]))
 
     def __hash__(self):
-        # Combine os hashes dos atributos que compõem a identidade do objeto
         return hash((self.nome, self.freguesia))
 
     def __eq__(self, other):
-        # Verifique se os atributos que compõem a identidade são iguais
         return (isinstance(other, Rua) and
                 self.nome == other.nome and
                 self.freguesia == other.freguesia)
