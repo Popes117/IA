@@ -83,6 +83,8 @@ class Grafo:
     def get_arc_cost(self, rua1, rua2):
         custoT = math.inf
         a = self.m_graph[rua1]  # lista de arestas para aquele nodo
+        if rua1 == rua2:
+            return 0
         for (nodo, custo) in a:
             if nodo == rua2:
                 custoT = custo
@@ -115,15 +117,14 @@ class Grafo:
         if start == end:
             # calcular o custo do caminho funçao calcula custo.
             custoT = self.calcula_custo(path)
-
-            return (path, custoT)
-        for (adjacente, peso) in self.m_graph[start]:
+            return (path, custoT,visited)
+        for (adjacente, _) in self.m_graph[start]:
             if adjacente not in visited:
-                resultado = self.procura_DFS(adjacente, end, path, visited)
+                resultado,custo,aaaa = self.procura_DFS(adjacente, end, path, visited)
                 if resultado is not None:
-                    return resultado,visited
-        path.pop()  # se nao encontra remover o que está no caminho......
-        return None
+                    return resultado,custo,visited
+        path.pop() 
+        return None,None,None
 
     #####################################################
     # Procura BFS
@@ -458,12 +459,15 @@ class Grafo:
         
         while ruas_a_procurar:
             rua_atual = ruas_a_procurar[0]  # Rua atual é o primeiro elemento da lista
-            (path, custo, visited) = self.procura_DFS(ponto_atual, rua_atual)
-            percurso.extend(path[1:])  # Adiciona todos os elementos do caminho, exceto o primeiro (repetido)
-            custo_total += custo
+            if rua_atual == ponto_atual:
+                pass
+            else:
+                (path, custo, visited) = self.procura_DFS(ponto_atual, rua_atual,[],set())
+                percurso.extend(path[1:])  # Adiciona todos os elementos do caminho, exceto o primeiro (repetido)
+                custo_total += custo
 
-            ponto_atual = rua_atual
-            visitados.update(visited)
+                ponto_atual = rua_atual
+                visitados.update(visited)
 
             # Exclui a rua atual do conjunto de ruas a procurar
             ruas_a_procurar.remove(rua_atual)
