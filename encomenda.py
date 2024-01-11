@@ -93,7 +93,7 @@ def preco(peso, volume, transporte):
 #caso não encontre, adicionalmente caso a soma do peso delas passe dos 50kg a mais recente é inserida numa nova lista
 def agruparEncomendas():
     encomendas_agrupadas = {}
-    pesoMaximo = 50.0
+    pesoMaximo = 100.0
 
     for encomenda_id, encomenda in Encomenda.listaEncomendas.items():
         # Verifica se a data já está presente no dicionário

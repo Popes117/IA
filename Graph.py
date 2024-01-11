@@ -418,6 +418,7 @@ class Grafo:
         path4, custo4, visitados4 = self.procura_DFS(start,end)
         path5, custo5, visitados5 = self.uniform_cost_search(start,end)
 
+        menor_custo = min([custo1, custo2, custo3, custo4,custo5])
         print("Algoritmos que chegaram à melhor solução: ")
         if menor_custo == custo1:
             print("A*")
@@ -430,7 +431,6 @@ class Grafo:
         if menor_custo == custo5:
             print("Custo Uniforme")
             
-        menor_custo = min([custo1, custo2, custo3, custo4,custo5])
         if menor_custo == custo1:
             return path1, menor_custo, visitados1
         elif menor_custo == custo2:

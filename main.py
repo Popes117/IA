@@ -12,15 +12,12 @@ import random
 def preço(peso, volume, transporte):
         if transporte == "Bicicleta":
             return 1 + peso*volume/100
-        elif transporte == "Bicicleta":
+        elif transporte == "Mota":
             return 3 + 2*peso*volume/100
         else:
             return 5 + 4*peso*volume/100
 
 def main():
-    listEncomendas = list()
-    idEncomenda = 0
-
     heuristicas = Heu()
     heuristicas.fillHeuristicas() #mudar esta funcao
 
@@ -159,7 +156,7 @@ def main():
             #Informações da Encomenda
             encomendaIdC = int(input("Id Cliente: "))
             peso = float(input("Peso da Encomenda: "))
-            if peso > 50:
+            if peso > 100:
                 print("Peso não suportado")
             else:
                 volume = float(input("Volume da encomenda(em centímetros cúbicos): "))
