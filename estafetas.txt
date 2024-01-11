@@ -4,6 +4,6 @@
 4,Francisca Maria,21,5
 5,Jose Oliveira,50,10
 6,Goncalo Machado,31,7
-7,Maria Joao,100,50
+7,Maria Joao,101,51
 8,Pedro Lopes,42,9
-9,Marta Rodrigues,79,16
+9,Marta Rodrigues,84,17

@@ -160,7 +160,7 @@ def main():
                 print("Peso não suportado")
             else:
                 volume = float(input("Volume da encomenda(em centímetros cúbicos): "))
-                tempoLimite = int(input("Hora limite de entrega(minutos): "))
+                tempoLimite = int(input("Tempo limite de entrega(minutos): "))
                 dataEntrega = input("Data de Entrega (DD/MM/AAAA): ")
 
             #Adicionar Encomenda as encomendas já existentes
@@ -214,7 +214,7 @@ def main():
                         aval = 5
                         estafeta_escolhido = Estafeta.listaEstafeta[estafeta-1]
                         if tempoGasto <= tempoLimite:
-                            print(f"Tempo de entrega: {tempoGasto}")
+                            #print(f"Tempo de entrega: {tempoGasto}")
                             print("Avaliação dada: 5")
                             estafeta_escolhido.updateAvaliacao(aval)
                             pass
@@ -280,9 +280,9 @@ def main():
                     elif algoritmo == 4:
                         (path, custo, visitados) = g.procura_DFS(rua0,caminho)
                     elif algoritmo == 5:
-                        (path, custo, visitados) = g.uniform_cost_search(rua0,rua)
+                        (path, custo, visitados) = g.uniform_cost_search(rua0,caminho)
                     elif algoritmo == 6:
-                        (path, custo, visitados) = g.melhorCircuito(rua0,rua)
+                        (path, custo, visitados) = g.melhorCircuito(rua0,caminho)
                     else:
                         print("Input inválido")
 

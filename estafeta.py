@@ -60,9 +60,9 @@ class Estafeta:
         tempoCarro =(custo/(50-(peso*0.1))) * 60
 
         atrasoDesejado = tempoLimite + tempoLimite*(self.somaAvaliacao/self.nrEncomendas)/5
-        print(f"Tempo Bicla: {tempoBicla}")
-        print(f"Tempo Mota: {tempoMota}")
-        print(f"Tempo Max: {atrasoDesejado}")
+        #print(f"Tempo Bicla: {tempoBicla}")
+        #print(f"Tempo Mota: {tempoMota}")
+        #print(f"Tempo Max: {atrasoDesejado}")
         if tempoBicla <= atrasoDesejado and bicla:
             return "Bicicleta",tempoBicla
         if tempoMota <= atrasoDesejado and mota:
